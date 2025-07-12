@@ -40,23 +40,38 @@
 \section{Definitionen}
 Zur Betrachtung der Algebra folgen Definitionen, die für den weiteren Verlauf dieser Arbeit nützlich sind.
 \begin{definition}
-	Ein Vektor $\boldsymbol{v} = (v_1, \ldots, v_n)$ aus dem Raum $\mathbb{R}^n$ hat die Größe $n$ und ist ein Tupel von $n$ Elementen wobei jedes Element $v_i \in \mathbb{R}$.
+	Ein Vektor $\boldsymbol{v} = (v_1, \ldots, v_n)$ aus dem Raum $\mathbb{R}^n$ hat die Größe $n$ und ist ein Tupel von $n$ Elementen, wobei jedes Element $v_i \in \mathbb{R}$.
 \end{definition}
 Zu beachten ist, dass der Vektor $\boldsymbol{v}$ fett geschrieben ist. Zum Beispiel ist $\boldsymbol{0}$ der Vektor, bei dem alle Elemente den Wert null haben.
 \begin{definition}
-	Eine Matrix $A$ aus dem Raum $\mathbb{R}^{n \times m}$ hat die Größe $n \times m$ und besteht aus $n$ Zeilen und $m$ Spalten wobei jedes Element $a_{ij} \in \mathbb{R}$.
+	Eine Matrix $A$ aus dem Raum $\mathbb{R}^{n \times m}$ hat die Größe $n \times m$ und besteht aus $n$ Zeilen und $m$ Spalten, wobei jedes Element $a_{ij} \in \mathbb{R}$.
 \end{definition}
 \begin{definition}
-   	Zwei Vektoren $\boldsymbol{u}$ und $\boldsymbol{v}$ projezieren den Vektor $\boldsymbol{w}$ genau dann, wenn es Konstanten $k_1$ und $k_2$ gibt, so dass $$k_1 \boldsymbol{u} + k_2\boldsymbol{v} = \boldsymbol{w} \neq \boldsymbol{0},$$ dabei haben $\boldsymbol{u}$, $\boldsymbol{v}$ und $\boldsymbol{w}$ dieselbe Größe.
+   	Zwei Vektoren $\boldsymbol{u}$ und $\boldsymbol{v}$ projezieren den Vektor $\boldsymbol{w}$ genau dann, wenn es Konstanten $k_1$ und $k_2$ gibt, so dass $$k_1 \boldsymbol{u} + k_2\boldsymbol{v} = \boldsymbol{w} \neq \boldsymbol{0},$$ dabei haben $\boldsymbol{u}$, $\boldsymbol{v}$ und $\boldsymbol{w}$ dieselbe Größe und $k_i \in \mathbb{R}$, $k_i \neq 0$.
 \end{definition}
+Das heißt, die Vektoren $\boldsymbol{u}$ und $\boldsymbol{v}$ bilden eine \textit{Projektion} $\boldsymbol{w}$ in Abhängigkeit der Konstanten $k_1$, $k_2$, wobei die Konstanten nicht den Wert null haben.
+\begin{definition}
+	Für die Projektion $\boldsymbol{w}$ durch die Vektoren $\boldsymbol{u}$ und $\boldsymbol{v}$ liegen $\boldsymbol{u}$ und $\boldsymbol{v}$ in der Umgebung von $\boldsymbol{w}$ im Raum $\mathbb{R}^n$, wobei $\boldsymbol{u}$, $\boldsymbol{v}$ und $\boldsymbol{w}$ jeweils Größe $n$ haben.
+\end{definition}
+Nicht alle Vektoren $\boldsymbol{u}$ und $\boldsymbol{v}$ liegen in der Umgebung von $\boldsymbol{w}$. Es gibt Vektoren im Raum $\mathbb{R}^n$, durch die $\boldsymbol{w}$ niemals projeziert werden kann.
+\begin{definition}
+	Eine Projektion $\boldsymbol{w}$ durch die Vektoren $\boldsymbol{u}$ und $\boldsymbol{v}$ und Konstanten $k_1$, $k_2$ ist minimal, wenn für alle Konstanten $k_i$ gilt, wird eine Konstante $k_i = 0$, dann ist $$k_1 \boldsymbol{u} + k_2\boldsymbol{v} = \boldsymbol{0}.$$
+\end{definition}
+Das bedeutet, wenn eine minimale Projektion gefunden wurde, entferne die eine Konstante $k$, d.h., $k = 0$, und erhalte mit $k_1 \boldsymbol{u} + k_2\boldsymbol{v} = \boldsymbol{0}$ die \textit{größte Einheit}, mit der, egal wie ihre Vektoren miteinander kombiniert werden, nichts mehr projeziert werden kann außer $\boldsymbol{0}$. Damit wurde eine größte und nicht mehr projezierbare Einheit gefunden, der \textit{Kern}.
 
-
-
-Finde eine minimale Projektion, nimm dann noch eine Konstante $k$ weg, dann ist es die größte Einheit, die aus sich heraus, egal wie, nichts mehr projezieren kann außer $\boldsymbol{0}$. Wir haben eine größte, nicht projezierbare Einheit, den Kern. Der Kern in seiner Umgebung bzw. Dimension ist nicht teilbar, er kann nicht weiter reduziert werden.
-
-Der triviale Kern besteht nur aus den Vektoren bei dem jeweils nur ein Element 1 ist.
-
-Die Einheitsmatrix ist gegeben durch den trivialen Kern in entsprechender Ordnung.
-
+Der Kern in seiner Umgebung des Raumes ist nicht teilbar, er kann nicht weiter reduziert werden. Der \textit{triviale Kern} besteht nur aus den Vektoren, bei denen jeweils nur ein Element den Wert eins hat, sonst haben alle anderen Elemente den Wert null.
+\begin{definition}
+	Die Einheitsmatrix $E$ ist gegeben durch den trivialen Kern in entsprechender Ordnung, $$ E = (\boldsymbol{e_1} \: \boldsymbol{e_2} \: \boldsymbol{e_3} \: \boldsymbol{e_4}) = 
+	\begin{pmatrix}
+		1 & 0 & 0 & 0 \\
+		0 & 1 & 0 & 0 \\
+		0 & 0 & 1 & 0 \\
+		0 & 0 & 0 & 1
+	\end{pmatrix},$$
+wobei $E$ die Größe vier hat und die Vektoren $\boldsymbol{e_1}, \ldots, \boldsymbol{e_4}$  jeweils die Größe vier haben.
+\end{definition}
+Man beachte, dass bei den Vektoren $\boldsymbol{e_1}, \ldots, \boldsymbol{e_4}$ jeweils nur ein Element den Wert eins hat, sonst haben alle anderen Elemente den Wert null. Außerdem gilt:
+$$ k_1\boldsymbol{e_1} + k_2\boldsymbol{e_2} + k_3\boldsymbol{e_3} + k_4\boldsymbol{e_4} = \boldsymbol{0},$$ egal, welchen Wert die Konstanten $k_i \in \mathbb{R} $ annehmen. In dieser Ordnung $\boldsymbol{e_1}, \ldots, \boldsymbol{e_4}$ bilden sie die Einheitsmatrix und auch einen Kern im Raum $\mathbb{R}^{4 \times 4}$. 
+ 
 Idee: Halte die Wertebereiche von Elementen einer Matrix in ihrer Größe klein, finde die Menge aller Kerne, mit Hilfe derer Ergebnisse von Matrixoperationen effizienter nachgeschaut werden können. Vergrößere den Wertebereich um ein Delta, das für das effizientere Nachschauen im vergrößerten Wertebereich genutzt wird.
 \end{document}
