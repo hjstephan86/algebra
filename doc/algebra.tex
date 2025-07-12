@@ -1,0 +1,62 @@
+\documentclass{scrartcl}
+\usepackage[a4paper, total={6in, 10in}]{geometry}
+\usepackage[ngerman]{babel}
+
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{multirow} % Wichtig: Fügen Sie dieses Paket in Ihrer Präambel hinzu!
+\usepackage{array} % Oft nützlich in Verbindung mit tabularx
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+\usepackage{tikz}
+
+\usepackage[colorlinks=true, linkcolor=black, citecolor=black, urlcolor=black]{hyperref}
+
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{definition}{Definiton}[section]
+\numberwithin{equation}{section}
+
+\makeatletter
+\renewcommand{\ALG@name}{Algorithmus}
+\makeatother
+\algrenewcommand\algorithmicrequire{\textbf{Eingabe:}}
+\algrenewcommand\algorithmicensure{\textbf{Ausgabe:}}
+
+\title{Grundlagen der Algebra}
+\author{Stephan Epp\\\texttt{hjstephan86@gmail.com}}
+\date{\today}
+
+\begin{document}
+	\maketitle
+	\vspace{5em}
+	\tableofcontents
+	\newpage
+\section{Definitionen}
+Zur Betrachtung der Algebra folgen Definitionen, die für den weiteren Verlauf dieser Arbeit nützlich sind.
+\begin{definition}
+	Ein Vektor $\boldsymbol{v} = (v_1, \ldots, v_n)$ aus dem Raum $\mathbb{R}^n$ hat die Größe $n$ und ist ein Tupel von $n$ Elementen wobei jedes Element $v_i \in \mathbb{R}$.
+\end{definition}
+Zu beachten ist, dass der Vektor $\boldsymbol{v}$ fett geschrieben ist. Zum Beispiel ist $\boldsymbol{0}$ der Vektor, bei dem alle Elemente den Wert null haben.
+\begin{definition}
+	Eine Matrix $A$ aus dem Raum $\mathbb{R}^{n \times m}$ hat die Größe $n \times m$ und besteht aus $n$ Zeilen und $m$ Spalten wobei jedes Element $a_{ij} \in \mathbb{R}$.
+\end{definition}
+\begin{definition}
+   	Zwei Vektoren $\boldsymbol{u}$ und $\boldsymbol{v}$ projezieren den Vektor $\boldsymbol{w}$ genau dann, wenn es Konstanten $k_1$ und $k_2$ gibt, so dass $$k_1 \boldsymbol{u} + k_2\boldsymbol{v} = \boldsymbol{w} \neq \boldsymbol{0},$$ dabei haben $\boldsymbol{u}$, $\boldsymbol{v}$ und $\boldsymbol{w}$ dieselbe Größe.
+\end{definition}
+
+
+
+Finde eine minimale Projektion, nimm dann noch eine Konstante $k$ weg, dann ist es die größte Einheit, die aus sich heraus, egal wie, nichts mehr projezieren kann außer $\boldsymbol{0}$. Wir haben eine größte, nicht projezierbare Einheit, den Kern. Der Kern in seiner Umgebung bzw. Dimension ist nicht teilbar, er kann nicht weiter reduziert werden.
+
+Der triviale Kern besteht nur aus den Vektoren bei dem jeweils nur ein Element 1 ist.
+
+Die Einheitsmatrix ist gegeben durch den trivialen Kern in entsprechender Ordnung.
+
+Idee: Halte die Wertebereiche von Elementen einer Matrix in ihrer Größe klein, finde die Menge aller Kerne, mit Hilfe derer Ergebnisse von Matrixoperationen effizienter nachgeschaut werden können. Vergrößere den Wertebereich um ein Delta, das für das effizientere Nachschauen im vergrößerten Wertebereich genutzt wird.
+\end{document}
