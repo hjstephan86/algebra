@@ -37,6 +37,8 @@
 	\vspace{5em}
 	\tableofcontents
 	\newpage
+\section{Einleitung}
+Was ist Algebra? Von seiner Wortbedeutung her bedeutet Algebra die \textit{Lehre von den Gleichungen} oder die \textit{Theorie der Verknüpfungen mathematischer Strukturen}. Um Aussagen darüber treffen zu können, was Gleichungen oder Verknüpfungen sind, muss definiert werden, wie die Strukturen aussehen, die miteinander verglichen oder verknüpft werden. Um den Begriff Struktur besser zu verstehen, lohnt sich ein Blick in die Informatik. Mögliche Strukturen in der Informatik sind zum Beispiel \textit{Listen} oder \textit{Stacks}. Dabei enthält ein Liste eine Menge von Elementen, wobei die Elemente jeweils einen Wert annehmen. Die Beschreibung der Liste als Datenstruktur eignet sich aber auch schon für die Beschreibung der mathematischen Struktur des \textit{Vektors}. Mögliche Verknüpfungen von Vektoren sind zum Beispiel die Addition oder Multiplikation zweier Vektoren, die in dieser Verknüpfung wieder einen Vektor als Ergebnis haben. Es ist nicht unüblich in der Informatik auch eine Liste von Listen zu nutzen, um zur Laufzeit effizient auf die Datenstruktur zugreifen zu können. Die Beschreibung der Liste von Listen eignet sich aber auch für die Beschreibung der mathematischen Struktur der \textit{Matrix}. Mögliche Verknüpfungen von Matrizen sind zum Beispiel die Addition oder Multiplikation zweier Matrizen, die in dieser Verknüpfung wieder eine Matrix als Ergebnis haben.
 \section{Definitionen}
 Zur Betrachtung der Algebra folgen Definitionen, die für den weiteren Verlauf dieser Arbeit nützlich sind.
 \begin{definition}
@@ -72,6 +74,10 @@ wobei $E$ die Größe vier hat und die Vektoren $\boldsymbol{e_1}, \ldots, \bold
 \end{definition}
 Man beachte, dass bei den Vektoren $\boldsymbol{e_1}, \ldots, \boldsymbol{e_4}$ jeweils nur ein Element den Wert eins hat, sonst haben alle anderen Elemente den Wert null. Außerdem gilt:
 $$ k_1\boldsymbol{e_1} + k_2\boldsymbol{e_2} + k_3\boldsymbol{e_3} + k_4\boldsymbol{e_4} = \boldsymbol{0},$$ egal, welchen Wert die Konstanten $k_i \in \mathbb{R} $ annehmen. In dieser Ordnung $\boldsymbol{e_1}, \ldots, \boldsymbol{e_4}$ bilden sie die Einheitsmatrix und auch einen Kern im Raum $\mathbb{R}^{4 \times 4}$. 
- 
+
+Es ist bekannt, dass bei der Vektoraddition oder -multiplikation zwei Vektoren im Allgemeinen nicht miteinander multipliziert werden können. Zwei Vektoren können nur dann miteinander multipliziert werden, wenn sie dieselbe Größe haben. Erst dann ergibt das Produkt der beiden Vektoren wieder einen Vektor derselben Größe.
+
+Es ist auch bekannt, dass bei der Matrixaddition oder -multiplikation zwei Matrizen im Allgemeinen nicht miteinander multipliziert werden können. Zwei Matrizen können nur dann miteinander multipliziert werden, wenn die Anzahl der Spalten der ersten Matrix gerade die Anzahl der Zeilen der zweiten Matrix ist. Erst dann ergibt das Produkt der beiden Matrizen wieder eine Matrix mit folgender Größe: Die Anzahl der Zeilen der Produktmatrix ist die Anzahl der Zeilen der ersten Matrix und die Anzahl der Spalten der Produktmatrix ist die Anzahl der Spalten der zweiten Matrix.
+
 Idee: Halte die Wertebereiche von Elementen einer Matrix in ihrer Größe klein, finde die Menge aller Kerne, mit Hilfe derer Ergebnisse von Matrixoperationen effizienter nachgeschaut werden können. Vergrößere den Wertebereich um ein Delta, das für das effizientere Nachschauen im vergrößerten Wertebereich genutzt wird.
 \end{document}
