@@ -1,4 +1,4 @@
-\documentclass{scrartcl}
+\documentclass[oneside]{scrbook}
 \usepackage[a4paper, total={6in, 10in}]{geometry}
 \usepackage[ngerman]{babel}
 
@@ -22,6 +22,8 @@
 \newtheorem{definition}{Definiton}[section]
 \numberwithin{equation}{section}
 
+\setcounter{secnumdepth}{3} % Ensures subsubsection and above are numbered
+
 \makeatletter
 \renewcommand{\ALG@name}{Algorithmus}
 \makeatother
@@ -36,11 +38,11 @@
 	\maketitle
 	\vspace{5em}
 	\tableofcontents
-	\newpage
-\section{Einleitung}
+\chapter{Einleitung}
 Was ist Algebra? Von seiner Wortbedeutung her bedeutet Algebra die \textit{Lehre von den Gleichungen} oder die \textit{Theorie der Verknüpfungen mathematischer Strukturen}. Um Aussagen darüber treffen zu können, was Gleichungen oder Verknüpfungen sind, muss definiert werden, wie die Strukturen aussehen, die miteinander verglichen oder verknüpft werden. Um den Begriff Struktur besser zu verstehen, lohnt sich ein Blick in die Informatik. Mögliche Strukturen in der Informatik sind zum Beispiel \textit{Listen} oder \textit{Stacks}. Dabei enthält ein Liste eine Menge von Elementen, wobei die Elemente jeweils einen Wert annehmen. Die Beschreibung der Liste als Datenstruktur eignet sich aber auch schon für die Beschreibung der mathematischen Struktur des \textit{Vektors}. Mögliche Verknüpfungen von Vektoren sind zum Beispiel die Addition oder Multiplikation zweier Vektoren, die in dieser Verknüpfung wieder einen Vektor als Ergebnis haben. Es ist nicht unüblich in der Informatik auch eine Liste von Listen zu nutzen, um zur Laufzeit effizient auf die Datenstruktur zugreifen zu können. Die Beschreibung der Liste von Listen eignet sich aber auch für die Beschreibung der mathematischen Struktur der \textit{Matrix}. Mögliche Verknüpfungen von Matrizen sind zum Beispiel die Addition oder Multiplikation zweier Matrizen, die in dieser Verknüpfung wieder eine Matrix als Ergebnis haben.
-\section{Definitionen}
+\chapter{Definitionen}
 Zur Betrachtung der Algebra folgen Definitionen, die für den weiteren Verlauf dieser Arbeit nützlich sind.
+\section{Strukturen}
 \begin{definition}
 	Ein Vektor $\boldsymbol{v} = (v_1, \ldots, v_n)$ aus dem Raum $\mathbb{R}^n$ hat die Größe $n$ und ist ein Tupel von $n$ Elementen, wobei jedes Element $v_i \in \mathbb{R}$.
 \end{definition}
@@ -75,9 +77,268 @@ wobei $E$ die Größe vier hat und die Vektoren $\boldsymbol{e_1}, \ldots, \bold
 Man beachte, dass bei den Vektoren $\boldsymbol{e_1}, \ldots, \boldsymbol{e_4}$ jeweils nur ein Element den Wert eins hat, sonst haben alle anderen Elemente den Wert null. Außerdem gilt:
 $$ k_1\boldsymbol{e_1} + k_2\boldsymbol{e_2} + k_3\boldsymbol{e_3} + k_4\boldsymbol{e_4} = \boldsymbol{0},$$ egal, welchen Wert die Konstanten $k_i \in \mathbb{R} $ annehmen. In dieser Ordnung $\boldsymbol{e_1}, \ldots, \boldsymbol{e_4}$ bilden sie die Einheitsmatrix und auch einen Kern im Raum $\mathbb{R}^{4 \times 4}$. 
 
+\section{Verknüpfungen}
 Es ist bekannt, dass bei der Vektoraddition oder -multiplikation zwei Vektoren im Allgemeinen nicht miteinander addiert oder multipliziert werden können. Zwei Vektoren können zum Beispiel nur dann miteinander multipliziert werden, wenn sie dieselbe Größe haben. Erst dann ergibt das Produkt der beiden Vektoren wieder einen Vektor derselben Größe.
 
 Es ist auch bekannt, dass bei der Matrixaddition oder -multiplikation zwei Matrizen im Allgemeinen nicht miteinander addiert oder multipliziert werden können. Zwei Matrizen können zum Beispiel nur dann miteinander multipliziert werden, wenn die Anzahl der Spalten der ersten Matrix gerade die Anzahl der Zeilen der zweiten Matrix ist. Erst dann ergibt das Produkt der beiden Matrizen wieder eine Matrix mit folgender Größe: Die Anzahl der Zeilen der Produktmatrix ist die Anzahl der Zeilen der ersten Matrix und die Anzahl der Spalten der Produktmatrix ist die Anzahl der Spalten der zweiten Matrix.
 
-Idee: Halte die Wertebereiche von Elementen einer Matrix in ihrer Größe klein, finde die Menge aller Kerne, mit Hilfe derer Ergebnisse von Matrixoperationen effizienter nachgeschaut werden können. Vergrößere den Wertebereich um ein Delta, das für das effizientere Nachschauen im vergrößerten Wertebereich genutzt wird.
+\chapter{Anwendungen}
+Zur Anwendung der grundlegenden Definitionen der Strukturen und Verknüpfungen werden in diesem Kapitel konkreten Vorgehensweisen zur Verknüpfung der Strukturen beschrieben.
+
+\section{Matrixmultiplikation}
+Dieser Abschnitt beschreibt Vorgehensweisen zur Verknüpfung der Multiplikation auf der Struktur der Matrix. Dabei wird angenommen, dass zwei $n \times n$ Matrizen $A$ und $B$ multipliziert werden.
+
+\subsection{Herkömmliche Multiplikation}
+Die herkömmliche Matrixmultiplikation ist gegeben durch ihre Definition und benötigt in der Anwendung eine Laufzeit von $O(n^3)$, wenn wir der Einfachheit davon ausgehen, dass zwei $n \times n$ Matrizen miteinander multipliziert werden.
+
+\subsection{Verbesserte Multiplikation}
+Es folgt der Algorithmus \ref{alg:strassen} von \textsc{Strassen}  als Pseudocode. Als Eingabe erhalten wir zwei $n \times n$ Matrizen. Der Einfachheit halber wird angenommen, dass $n$ eine Zweierpotenz ist.
+\begin{algorithm}
+	\caption{\textsc{Strassen}$(A, B)$}
+	\label{alg:strassen}
+	\begin{algorithmic}[1]
+		\Require $\langle A, B \rangle$ mit $n \times n$ Matrizen $A$, $B$, $n = 2^k$, $k \in \mathbb{N}$
+		\Ensure $\langle C \rangle$ mit Produktmatrix $C = AB$
+		\If{$n = 1$} \textbf{return} $C = AB$
+		\EndIf
+		%\Comment{Matrizen in $n/2 \times n/2$ Blöcke unterteilen}
+		\State $A = \begin{pmatrix} A_{11} & A_{12} \\ A_{21} & A_{22} \end{pmatrix}$
+		\State $B = \begin{pmatrix} B_{11} & B_{12} \\ B_{21} & B_{22} \end{pmatrix}$
+		%\Comment{Berechne die 7 Produkte rekursiv}
+		\State $P_1 = \textsc{Strassen}(A_{11} + A_{22}, B_{11} + B_{22})$
+		\State $P_2 = \textsc{Strassen}(A_{21} + A_{22}, B_{11})$
+		\State $P_3 = \textsc{Strassen}(A_{11}, B_{12} - B_{22})$
+		\State $P_4 = \textsc{Strassen}(A_{22}, B_{21} - B_{11})$
+		\State $P_5 = \textsc{Strassen}(A_{11} + A_{12}, B_{22})$
+		\State $P_6 = \textsc{Strassen}(A_{21} - A_{11}, B_{11} + B_{12})$
+		\State $P_7 = \textsc{Strassen}(A_{12} - A_{22}, B_{21} + B_{22})$
+		% \Comment{Berechne die Blöcke von $C$}
+		\State $C_{11} = P_1 + P_4 - P_5 + P_7$
+		\State $C_{12} = P_3 + P_5$
+		\State $C_{21} = P_2 + P_4$
+		\State $C_{22} = P_1 - P_2 + P_3 + P_6$
+		\State \textbf{return} $C = \begin{pmatrix} C_{11} & C_{12} \\ C_{21} & C_{22} \end{pmatrix}$
+	\end{algorithmic}
+\end{algorithm}
+Zu Beginn prüfen wir, ob die Größe der Matrizen bereits den Wert $1$ hat. Haben die Matrizen den Wert $1$, geben wir das Produkt $A B$ zurück. In Zeile 2 und 3 werden die Matrizen $A$ und $B$ so definiert, dass in den Zeilen 4 bis 10 die 5 Matrixmultiplikationen jeweils durchgeführt werden. In den Zeilen 11 bis 14 werden 4 Matrizen $C_{ij}$ durch Addition und Subtraktion der Matrizen $A_{ij}$ berechnet und in Zeile 15 Matrix $C$ als Ergebnis zurückgegeben.
+
+Als Idee zum Beweis der Korrektheit betrachten wir das Produkt $A \cdot B$ der zwei Matrizen $A$ und $B$ mit
+\begin{align*}
+	A = \begin{pmatrix} a & b \\ c & d \end{pmatrix} \quad \text{und} \quad B = \begin{pmatrix} e & f \\ g & h \end{pmatrix}.
+\end{align*}
+Zur Vereinfachung beinhalten die Matrizen nur skalare Werte. Das Ergebnis $C = A \cdot B$ ist
+\begin{align*}
+	C = \begin{pmatrix} ae + bg & af + bh \\ ce + dg & cf + dh \end{pmatrix}.
+\end{align*}
+Der Algorithmus von \textsc{Strassen} berechnet $P_r$ mit
+\[
+\begin{array}{ll}
+	P_1 = \textsc{Strassen}(a + d, e + h) & = ae + ah + de + dh, \\
+	P_2 = \textsc{Strassen}(c + d, e)     & = ce + de, \\
+	P_3 = \textsc{Strassen}(a, f - h)     & = af - ah, \\
+	P_4 = \textsc{Strassen}(d, g - e)     & = dg - de, \\
+	P_5 = \textsc{Strassen}(a + b, h)     & = ah + bh, \\
+	P_6 = \textsc{Strassen}(c - a, e + f) & = ce + cf - ae - af, \\
+	P_7 = \textsc{Strassen}(b - d, g + h) & = bg + bh - dg - dh.
+\end{array}
+\]
+Dann werden $C_{ij}$ berechnet mit
+\[
+\begin{array}{ll}
+	C_{11} = P_1 + P_4 - P_5 + P_7 & = ae + bg, \\
+	C_{12} = P_3 + P_5 & = af + bh, \\
+	C_{21} = P_2 + P_4 & = ce + dg, \\
+	C_{22} = P_1 - P_2 + P_3 + P_6 & = cf + dh,
+\end{array}
+\]
+wobei z.B. $ C_{11} = (ae + ah + de + dh) + (dg - de) - (ah + bh) + (bg + bh - dg - dh) = ae + bg$. Für einen formalen Beweis der Korrektheit verzichten wir auf die vollständige Induktion über $n \in \mathbb{N}$ der $n \times n$ Matrizen.
+
+\subsubsection{Laufzeitanalyse}
+Für die Multiplikation von zwei $n \times n$ Matrizen lautet die Rekurrenzgleichung für den Algorithmus von \textsc{Strassen}
+\begin{align*}
+	T(n) = 7 \: T(\tfrac{n}{2}) + c\: n^2.
+\end{align*}
+Der Algorithmus halbiert in jedem rekursiven Aufruf die beiden $n \times n$ Matrizen zu vier $\tfrac{n}{2} \times \tfrac{n}{2}$ Matrizen. Substituieren wir $n$ durch $\tfrac{n}{2}$, erhalten wir für
+\begin{align*}
+	T(\tfrac{n}{2}) &= 7 \: T(\tfrac{n}{4}) + c(\tfrac{n}{2})^2 = 7 \: T(\tfrac{n}{4}) + \tfrac{c}{4}n^2.
+\end{align*}
+Nach dem \textit{ersten} rekursiven Aufruf erhalten wir mit $T(\frac{n}{2})$ eingesetzt in $T(n)$ dann
+\begin{align*}
+	T(n) &= 7 \: (7 \: T(\tfrac{n}{4}) + \tfrac{c}{4} \: n^2) + c n^2 \\
+	&= 7^2\: T(\tfrac{n}{4}) + \tfrac{7}{4} \: cn^2 + c n^2.
+\end{align*}
+Mit dem \textit{zweiten} rekursiven Aufruf werden die vier $\tfrac{n}{2} \times \tfrac{n}{2}$ Matrizen wieder halbiert zu acht $\tfrac{n}{4} \times \tfrac{n}{4}$ Matrizen. Damit ist
+\begin{align*}
+	T(\tfrac{n}{4}) &= 7 \: T(\tfrac{n}{8}) + c(\tfrac{n}{4})^2 = 7 \: T(\tfrac{n}{8}) + \tfrac{c}{16}n^2.
+\end{align*}
+Wird $T(\tfrac{n}{4})$ eingesetzt in $T(n)$ ergibt sich
+\begin{align*}
+	T(n) &= 7^2\: (7 \: T(\tfrac{n}{8}) + \tfrac{c}{16}n^2) + \tfrac{7}{4}cn^2 + c n^2 \\
+	&= 7^3\: T(\tfrac{n}{2^3}) + \tfrac{7^2}{4^2}cn^2 + \tfrac{7}{4}cn^2 + c n^2.
+\end{align*}
+Betrachten wir nun den $k$-ten rekursiven Aufruf finden wir für 
+\begin{align*}
+	T(n) = 7^k \: T \: \big(\tfrac{n}{2^k}\big) + cn^2 \: \sum_{i = 0}^{k-1} \bigg(\frac{7}{4}\bigg)^i.
+\end{align*}
+Zur Vereinfachung belassen wir es bei dem $k$-ten rekursiven Aufruf auch in $T(n)$ bei $k$ und nicht $k + 1$. Kleinere Matrizen als $1 \times 1$ Matrizen gibt es nicht, daher können die $n \times n$ Matrizen nur $k$ mal halbiert werden. Der größte Wert, den $k$ annehmen kann, ist $k = \log_{2}n$. Damit ist
+\begin{align*}
+	\vphantom{\rule{0pt}{2.5ex}} T(n) &= 7^{\log_{2}n} \: T\Big(\frac{n}{2^{\log_{2}n}}\Big) + cn^2 \: \sum_{i = 0}^{\log_{2}n-1} \left(\tfrac{7}{4}\right)^i \\
+	\vphantom{\rule{0pt}{2.5ex}} &= n^{\log_{2}7} \: T(1) + cn^2 \:\frac{\left(\tfrac{7}{4}\right)^{\log_{2}n} - 1}{\tfrac{7}{4} - 1} \\
+	\vphantom{\rule{0pt}{2.5ex}} &= O\left(n^{2.8074}\right) + cn^2 \left(\tfrac{7}{4}\right)^{\log_{2}n} \\
+	\vphantom{\rule{0pt}{2.5ex}} &= O\left(n^{2.8074}\right) + cn^2 \cdot n^{\log_{2}\tfrac{7}{4}} \\
+	\vphantom{\rule{0pt}{2.5ex}} &= O\left(n^{2.8074}\right) + cn^{2.8074} \\
+	\vphantom{\rule{0pt}{2.5ex}} &= O\left(n^{2.8074}\right).
+\end{align*}
+
+\subsection{Optimale Multiplikation}
+Um die Anzahl der benötigten Matrixmultiplikationen von 7 auf 5 zu reduzieren, wird die Diagonale $e$ und $h$ der Matrix $B$ betrachtet. Dadurch wird für $n$ eine Laufzeit im Exponenten von $2.3219$ statt $2.807$ erreicht. Betrachtet man $P_2 = (c + d) \cdot e = ce + de$ und $P_5 = (a + b) \cdot h = ah + bh$, dann fällt auf, dass $P_2$ durch $P_6$ und $P_1$ ermittelt werden kann,
+\begin{align*}
+	ce &= P_6 - cf + ae + af, \\
+	de &= P_1 - ae - ah - dh,
+\end{align*}
+und $P_5$ durch $P_1$ und $P_7$
+\begin{align*}
+	ah &= P_1 - ae - de - dh, \\
+	bh &= P_7 - bg + dg + dh.
+\end{align*}
+Dazu müssen $P_1$, $P_6$ und $P_7$ berechnet werden bevor $P_2$ und $P_5$ ohne Multiplikation bestimmt werden können:
+\begin{align*}
+	P_2 &= ce + de = (P_6 - cf + ae + af) + (P_1 - ae - ah - dh) = P_6 + P_1 - cf + af - ah + af, \\
+	P_5 &= ah + bh = (P_1 - ae - de - dh) + (P_7 - bg + dg + dh) = P_1 + P_7 - ae - de - bg + dg.
+\end{align*}
+Da nur 5 Matrixmultiplikationen verwendet werden, ergibt sich für die Laufzeitanalyse 
+\begin{align*}
+	\vphantom{\rule{0pt}{2.5ex}} T(n) &= 5^{\log_{2}n} \: T\Big(\frac{n}{2^{\log_{2}n}}\Big) + cn^2 \sum_{i = 0}^{\log_{2}n-1} \left(\tfrac{5}{4}\right)^i
+	\vphantom{\rule{0pt}{2.5ex}} = n^{\log_{2}5} \: T(1) + cn^2 \frac{\left(\tfrac{5}{4}\right)^{\log_{2}n} - 1}{\tfrac{5}{4} - 1}
+	\vphantom{\rule{0pt}{2.5ex}} = O\left(n^{2.3219}\right).
+\end{align*}
+Dazu wird der Algorithmus von \textsc{Strassen} zu \textsc{Strassen-25} so geändert, dass $P_2$ und $P_5$ in Zeile 9 und 10 ermittelt werden. Damit $P_2$ und $P_5$ ermittelt werden können, müssen die zuvor ermittelten Produkte $P_r$, $r \in \{1, 6, 7\}$ verwendet werden. Das bedeutet für 
+\begin{align*}
+	P_2 &= P_6 + P_1 - A_{21}B_{12} + A_{11}B_{12} - A_{11}B_{22} + A_{11}B_{12}, \\
+	P_5 &= P_1 + P_7 - A_{11}B_{11} - A_{22}B_{11} - A_{21}B_{21} + A_{22}B_{21}.
+\end{align*}
+Dabei ist $P_2$ \textit{abhängig} von $P_6$ und $P_7$ und $P_5$ ist \textit{abhängig} von $P_1$ und $P_7$. Damit $P_2$ und $P_5$ ohne Matrixmultiplikation ermittelt werden können, müssen die Produkte $A_{ij}B_{ij}$ im vorherigen Rekursionsschritt jeweils gespeichert werden.
+\begin{algorithm}
+	\caption{\textsc{Strassen-25}$(A, B)$}
+	\label{alg:strassen25}
+	\begin{algorithmic}[1]
+		\Require $\langle A, B \rangle$ mit $n \times n$ Matrizen $A$, $B$, $n = 2^k$, $k \in \mathbb{N}$
+		\Ensure $\langle C, A_{ij}, B_{ij} \rangle$ mit Produktmatrix $C = AB$ und $A_{ij}$, $B_{ij}$
+		\If{$n = 1$} \textbf{return} $C = AB$
+		\EndIf
+		%\Comment{Matrizen in $n/2 \times n/2$ Blöcke unterteilen}
+		\State $A = \begin{pmatrix} A_{11} & A_{12} \\ A_{21} & A_{22} \end{pmatrix}$
+		\State $B = \begin{pmatrix} B_{11} & B_{12} \\ B_{21} & B_{22} \end{pmatrix}$
+		%\Comment{Berechne die 7 Produkte rekursiv}
+		\State $P_1 = \textsc{Strassen-25}(A_{11} + A_{22}, B_{11} + B_{22})$
+		\State $P_3 = \textsc{Strassen-25}(A_{11}, B_{12} - B_{22})$
+		\State $P_4 = \textsc{Strassen-25}(A_{22}, B_{21} - B_{11})$
+		\State $P_6 = \textsc{Strassen-25}(A_{21} - A_{11}, B_{11} + B_{12})$
+		\State $P_7 = \textsc{Strassen-25}(A_{12} - A_{22}, B_{21} + B_{22})$
+		\State $P_2 = P_6 + P_1 - A_{21}B_{12} + A_{11}B_{12} - A_{11}B_{22} + A_{11}B_{12}$ 
+		\State $P_5 = P_1 + P_7 - A_{11}B_{11} - A_{22}B_{11} - A_{21}B_{21} + A_{22}B_{21}$
+		% \Comment{Berechne die Blöcke von $C$}
+		\State $C_{11} = P_1 + P_4 - P_5 + P_7$
+		\State $C_{12} = P_3 + P_5$
+		\State $C_{21} = P_2 + P_4$
+		\State $C_{22} = P_1 - P_2 + P_3 + P_6$
+		\State \textbf{return} $C = \begin{pmatrix} C_{11} & C_{12} \\ C_{21} & C_{22} \end{pmatrix}$
+	\end{algorithmic}
+\end{algorithm}
+% Bei der Implementierung von \textsc{Strassen-25}$(A, B)$ müssen die Produkte $A_{ij}B_{ij}$ in jedem Rekursionsschritt für die gesamte Rekursion in einer Datenstruktur gespeichert werden. Dabei muss auf die Datenstruktur mit einem eindeutigen Schlüssel $(k, i_{A}, j_{A}, i_{B}, j_{B})$ in $O(1)$ zugegriffen werden, wobei $n = 2^k$, $k \in \mathbb{N}$.
+Damit in jedem Rekursionsschritt die Produkte $A_{ij}B_{ij}$ effizient gespeichert werden können, muss auf eine Datenstruktur mit einem eindeutigen Schlüssel $(k, i_{A}, j_{A}, i_{B}, j_{B})$ in $O(1)$ zugegriffen werden, $n = 2^k$, $k \in \mathbb{N}$.
+\begin{satz}
+	Es gibt keinen Teile-und-Herrsche Algorithmus zur Multiplikation von $n \times n$ Matrizen, der durch Nutzen von Abhängigkeiten weniger als 8 Matrixmultiplikationen benötigt und damit auch weniger als 5 Matrixmultiplikationen benötigt. 
+\end{satz}
+\begin{proof}
+	Angenommen, es gibt einen Teile-und-Herrsche Algorithmus zur Multiplikation von $n \times n$ Matrizen, der mit weniger als 5 Matrixmultiplikationen auskommt, dann muss dieser Algorithmus auch Abhängigkeiten $P_r = (P_s, P_t, A_{ij}B_{ij})$ verwenden, mit denen $P_r$ ermittelt werden kann, $r < 5$. Da $dim(A_{ij}) = dim(B_{ij}) = \frac{n}{2}$, ist es nicht möglich $C = AB$ zu berechnen. Das gesamte Bild der \textit{projezierten} Produktmatrix $C$ kann nur projeziert werden, wenn mindestens mehr als die Hälfte beider Matrizen $A_{ij}$ und $B_{ij}$ zum Projezieren verfügbar ist.
+\end{proof}
+\begin{satz}
+	Das optimale Teile-und-Herrsche Prinzip ist die effizienteste Methode, um Probleme zu lösen, wenn die Probleminstanz bei jedem rekursiven Aufruf halbiert wird. 
+\end{satz}
+\begin{proof}
+	In diesen drei Kriterien ist der Beweis zu führen: (1) Rekursionstiefe, (2) Anzahl der Teilprobleme, (3) Größe eines Teilproblems. Dabei wird schnell klar, dass es alles in der Halbierung zusammengefasst optimal ist. Denn die Halbierung ist nichts anderes als eine Verdoppelung im Nenner.
+	
+	Zu (1): Wichtig in der Analyse der Laufzeit eines Algorithmus oder einer Lösungsvorschrift, bestehend aus einfachen Operationen und dem Aufruf von Funktionen, ist das Betrachten der gerufenen Funktionen. Weniger wichtig sind einfache Operationen und Zuweisungen. Daher ist für die Laufzeitanalyse die Rekursionstiefe von wichtigster Bedeutung (sieht man z.B. beim Algorithmus von \textsc{Strassen} oder beim Algorithmus \textsc{Merge-Sort}).
+	
+	Die Rekursionstiefe ist logarithmisch. Kleiner kann die Tiefe für die gesamte Lösung nicht sein, da das Problem mit der 2 im Nenner logarithmisch geteilt wird. Die Funktion, die am stärksten wächst und dabei immer noch eine Umkehrfunktion hat, ist die Exponentialfunktion. Daher ist ihre Umkehrfunktion am schnellsten in der Reduzierung der Rekursionstiefe für die Laufzeitanalyse für Teile-und-Herrsche Algorithmen. Eine Erhöhung des Nenners führt zwangsläufig zu einer Veränderung der anderen beiden Kriterien.
+	
+	Zu (2), (3): Für die Anzahl der Teilprobleme und für die Größe eines Teilproblems gilt: Angenommen, der Nenner wird vergrößert. Dann wird die ursprüngliche Probleminstanz aber nicht in ihrem leichtesten Punkt geteilt. Denn ein Problem ist nur da am leichtesten zu teilen, wo sein Schwerpunkt liegt. Es gibt für jede Probleminstanz nur einen Schwerpunkt. Wenn der Nenner ganzzahlig verkleinert wird, wird nicht mehr geteilt. Es muss ganzzahlig verkleinert werden, da z.B. ein einzelnes Array-Element nicht teilbar ist. Die Zahl $e$ scheidet damit in der Wahl der Exponentialfunktion aus. Daher muss die Exponentialfunktion 2 als Basis haben.
+\end{proof}
+Auffällig ist, dass nur das Problem, bei dem zwei Instanzen durch einen Operator verbunden sind, mit dem optimalen Teile-und-Herrsche Prinzip zu lösen ist. Das sind Probleme mit Operatoren wie z.B., $+$, $-$, $<$. Im Prinzip werden diese Probleme an ihrem Schwerpunkt gelöst, wo sie trotz ihrer Schwere am leichtesten zu tragen sind, wie bei einer Wippe mit zwei gleichen Gewichten jeweils am äußersten Ende. Die Wippe ist dann exakt horizontal ausgerichtet im Gleichgewicht.
+\begin{lemma}
+	Schneller als mit $T(n) = O(n^{2.3219})$ können zwei $n \times n$ Matrizen nicht multipliziert werden.
+\end{lemma}
+\begin{proof}
+	Der Beweis folgt daraus, dass \textsc{Strassen-25}$(A, B)$ zwei $n \times n$ Matrizen nach dem optimalen Teile-und-Herrsche Prinzip multipliziert.
+\end{proof}
+
+\begin{satz}
+	Wenn es bei einer Lösung erforderlich ist, jedes Element der Eingabe während der Abarbeitung der Lösungsvorschrift einmal zu betrachten, dann gibt es keine bessere Laufzeit als die logarithmische.
+\end{satz}
+\begin{proof}
+	Wenn Laufzeit so aufgefasst wird, dass in jedem Schritt ein Register besucht wird, dann kann die Anzahl der unterschiedlich besuchten Register nicht weniger als logarithmisch sein. Die Sonnenblumenkerne in einer Sonnenblume sind logarithmisch angeordnet und damit optimal untergebracht mit minimal wenig Platz. Sie sind im goldenen Winkel angebracht. Würden sie besser angebracht werden können, dann wäre der goldene Winkel kein goldener Winkel.
+\end{proof}
+
+\begin{lemma}
+	Das optimale Teile-und-Herrsche Prinzip ist optimal unter allen Lösungsprinzipien, wo es während der Abarbeitung der Lösungsvorschrift erforderlich ist, jedes Element der Eingabe während der Lösung einmal zu betrachten.
+\end{lemma}
+\begin{proof}
+	Der Beweis folgt daraus, dass Algorithmen, die nach dem optimalen Teile-und-Herrsche Prinzip Lösungsvorschriften abarbeiten, logarithmische Laufzeit haben müssen. 
+\end{proof}
+
+\subsubsection{Erwartete Ergebnisse}
+Bei der Analyse der zu messenden Laufzeit von Algorithmus \textsc{Strassen-25} ist zu erwarten, dass dieser mit nur 5 Matrixmultiplikationen deutlich weniger Rechenzeit benötigt als der Algorithmus von \textsc{Strassen} mit 7 Matrixmultiplikationen.
+
+Die Tabelle \ref{tab:operations-comparison} zeigt die theoretische Anzahl benötigter Operationen für die Matrixmultiplikation in Abhängigkeit von $n$. Die Operationen sind elementare arithmetische Operationen wie Multiplikationen und Additionen/Subtraktionen von Skalaren. Die Anzahl der Operationen in der Tabelle sind asymptotisch und ignorieren konstante Faktoren, um die Skalierungseffekte zu betonen.
+\begin{table}[h]
+	\centering
+	\caption{Vergleich der theoretischen Anzahl an Operationen}
+	\label{tab:operations-comparison}
+	\renewcommand{\arraystretch}{1.5} % Zeilenhöhe erhöhen
+	\begin{tabular}{m{1.5cm}|m{3cm}|m{3cm}|m{3cm}|m{2cm}}
+		\hline
+		$n$ & Standard & \textsc{Strassen} & \textsc{Strassen-25} & Matrixgröße ($n \times n$) \\
+		\hline\hline
+		10 & $10^3 = 1.000$ & $10^{2.8074} \approx 642$ & $10^{2.3219} \approx 209$ & $100$ \\
+		\hline
+		100 & $100^3 = 10^6$ & $100^{2.8074} \approx 6.4 \times 10^5$ & $100^{2.3219} \approx 2.09 \times 10^4$ & $10^4$ \\
+		\hline
+		1.000 & $1.000^3 = 10^9$ & $1.000^{2.8074} \approx 6.4 \times 10^8$ & $1.000^{2.3219} \approx 2.09 \times 10^7$ & $10^6$ \\
+		\hline
+		10.000 & $10.000^3 = 10^{12}$ & $10.000^{2.8074} \approx 6.4 \times 10^{11}$ & $10.000^{2.3219} \approx 2.09 \times 10^{9}$ & $10^8$ \\
+		\hline
+		100.000 & $100.000^3 = 10^{15}$ & $100.000^{2.8074} \approx 6.4 \times 10^{14}$ & $100.000^{2.3219} \approx 2.09 \times 10^{11}$ & $10^{10}$ \\
+		\hline
+		1.000.000 & $1.000.000^3 = 10^{18}$ & $1.000.000^{2.8074} \approx 6.4 \times 10^{17}$ & $1.000.000^{2.3219} \approx 2.09 \times 10^{13}$ & $10^{12}$ \\
+		\hline
+		$10^7$ & $10^{21}$ & $6.4 \times 10^{20}$ & $2.09 \times 10^{15}$ & $10^{14}$ \\
+		\hline
+		$10^8$ & $10^{24}$ & $6.4 \times 10^{23}$ & $2.09 \times 10^{17}$ & $10^{16}$ \\
+		\hline
+	\end{tabular}
+\end{table}
+Die Wahl des geeigneten Algorithmus zur Matrixmultiplikation hängt stark von der Größe der Matrizen und dem spezifischen Anwendungsbereich ab. Interessant ist, dass schon für $n = 100$ nur $10^{4}$ Operationen benötigt werden von \textsc{Strassen-25} und dagegen $10^{5}$ Operationen von \textsc{Strassen}. Für $n \geq 10.000$ unterscheiden sich \textsc{Strassen-25} und \textsc{Strassen} um 2 Zehnerpotenzen und für $n \geq 10^8$ unterscheiden sie sich um 6 Zehnerpotenzen. Praktische Anwendungsbereiche für die $n \times n$ Matrixmultiplikation sind die folgenden:
+
+\begin{enumerate}
+	\item \textbf{Kleine Matrizen} ($n < 200$): Für kleinere Matrizen, wie sie in der Computergrafik oder bei einfachen linearen Gleichungssystemen vorkommen, ist der Standardalgorithmus mit $O(n^3)$ aufgrund seines geringen zusätzlichen Aufwands für die Rekursion und optimaler Cache-Nutzung die erste Wahl.
+	
+	\item \textbf{Mittlere bis große Matrizen} ($n \approx 200 - 10.000$): Im wissenschaftlichen Rechnen, bei Optimierungsproblemen oder im maschinellen Lernen dominieren weiterhin optimierte Implementierungen des Standardalgorithmus.
+	
+	\item \textbf{Sehr große Matrizen} ($n \ge 10.000$): Bei großen Matrizen, wie sie in Big Data Analysen oder beim Training umfangreicher Deep-Learning-Modelle auftreten, wird der Bedarf an Alternativen zu optimierten Standardalgorithmen deutlich. Damit gewinnt der Algorithmus von \textsc{Strassen} an Attraktivität und Relevanz für die Bewältigung rechenintensiver Multiplikationen.
+\end{enumerate}
+
+\section{Matrixoperationen}
+Eine Überlegung ist die folgende: Halte die Wertebereiche von Elementen einer Matrix in ihrer Größe klein, finde die Menge aller Kerne, mit Hilfe derer Ergebnisse von Matrixoperationen effizienter nachgeschaut werden können. Vergrößere den Wertebereich um ein Delta, das für das effizientere Nachschauen im vergrößerten Wertebereich genutzt wird.
+
+\section{Finden von Kernen}
+In der Beweisführung, dass es keinen Teile-und-Herrsche Algorithmus zur Multiplikation von $n \times n$ Matrizen gibt, der weniger als 5 Matrixmultiplikationen benötigt, wurde die Eigenschaft des Projezierens genutzt. Zwei Vektoren $\boldsymbol{u}$ und $\boldsymbol{v}$ projezieren $\boldsymbol{w}$ genau dann, wenn es Konstanten $k_1$ und $k_2$ gibt, so dass $$k_1 \boldsymbol{u} + k_2\boldsymbol{v} = \boldsymbol{w} \neq \boldsymbol{0}.$$ Es ist im Allgemeinen von Interesse, eine minimale Projektion zu finden: Finde eine minimale Projektion, nimm noch eine Konstante $k$ weg, dann ist es die \textit{größte Einheit}, die aus sich heraus, egal wie, nichts mehr projezieren kann außer $\boldsymbol{0}$. Die Idee des Algorithmus von \textsc{Strassen-25} eignet sich zum Finden von größten, nicht projezierbaren Einheiten.
+
+\chapter{Zusammenfassung}
+In dieser Arbeit wurde der Algorithmus von \textsc{Strassen} zur effizienten Multiplikation von Matrizen vorgestellt. Der \textsc{Strassen}-Algorithmus multipliziert zwei $n \times n$ Matrizen $A$ und $B$ unter Verwendung von nur 7 Matrixmultiplikationen anstelle der üblichen 8. Die Laufzeit des Algorithmus wird durch die Rekurrenzgleichung $T(n) = 7 \cdot T\left(\frac{n}{2}\right) + c \cdot n^2$ beschrieben. Der Algorithmus von \textsc{Strassen} hat damit eine Laufzeit von $O(n^{2.8074})$, welche analysiert wurde. Der Algorithmus wird in einem Pseudocode vorgestellt. Er unterteilt die Matrizen in 4 Teilmatrizen und berechnet 7 Produkte, die dann zur Berechnung der vier Blöcke der Ergebnis-Matrix verwendet werden.
+
+Eine Methode zur Reduzierung der Matrixmultiplikationen von 7 auf 5 wird beschrieben, was die Laufzeit auf $O(n^{2.3219})$ senkt. Diese Optimierung nutzt die Diagonale der Matrix $B$ und erfordert vorherige Berechnungen der Produkte. Der Algorithmus \textsc{Strassen-25} setzt diese Methode um. Das \textit{optimale Teile-und-Herrsche Prinzip} wird vorgestellt und gezeigt, dass es die effizienteste Methode ist, um Probleme zu lösen, wenn die Probleminstanz bei jedem rekursiven Aufruf halbiert wird. Komplexitätsklassen werden eingeführt, bewiesen dass $P = NP$ ist und erwartete Laufzeitergebnisse des Algorithmus von \textsc{Strassen-25} vorgestellt. Es wird gezeigt, dass schneller als mit Laufzeit $O(n^{2.3219})$ zwei $n \times n$ Matrizen \textit{nicht} multipliziert werden können.
+
+\section{Ausblick}
+
 \end{document}
