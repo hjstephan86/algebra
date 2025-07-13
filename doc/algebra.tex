@@ -74,13 +74,34 @@ Der Kern in seiner Umgebung des Raumes ist nicht teilbar, er kann nicht weiter r
 	\end{pmatrix},$$
 wobei $E$ die Größe vier hat und die Vektoren $\boldsymbol{e_1}, \ldots, \boldsymbol{e_4}$  jeweils die Größe vier haben.
 \end{definition}
-Man beachte, dass bei den Vektoren $\boldsymbol{e_1}, \ldots, \boldsymbol{e_4}$ jeweils nur ein Element den Wert eins hat, sonst haben alle anderen Elemente den Wert null. Außerdem gilt:
+Es ist beachten, dass bei den Vektoren $\boldsymbol{e_1}, \ldots, \boldsymbol{e_4}$ jeweils nur ein Element den Wert eins hat, sonst haben alle anderen Elemente den Wert null. Außerdem gilt:
 $$ k_1\boldsymbol{e_1} + k_2\boldsymbol{e_2} + k_3\boldsymbol{e_3} + k_4\boldsymbol{e_4} = \boldsymbol{0},$$ egal, welchen Wert die Konstanten $k_i \in \mathbb{R} $ annehmen. In dieser Ordnung $\boldsymbol{e_1}, \ldots, \boldsymbol{e_4}$ bilden sie die Einheitsmatrix und auch einen Kern im Raum $\mathbb{R}^{4 \times 4}$. 
 
 \section{Verknüpfungen}
 Es ist bekannt, dass bei der Vektoraddition oder -multiplikation zwei Vektoren im Allgemeinen nicht miteinander addiert oder multipliziert werden können. Zwei Vektoren können zum Beispiel nur dann miteinander multipliziert werden, wenn sie dieselbe Größe haben. Erst dann ergibt das Produkt der beiden Vektoren wieder einen Vektor derselben Größe.
 
-Es ist auch bekannt, dass bei der Matrixaddition oder -multiplikation zwei Matrizen im Allgemeinen nicht miteinander addiert oder multipliziert werden können. Zwei Matrizen können zum Beispiel nur dann miteinander multipliziert werden, wenn die Anzahl der Spalten der ersten Matrix gerade die Anzahl der Zeilen der zweiten Matrix ist. Erst dann ergibt das Produkt der beiden Matrizen wieder eine Matrix mit folgender Größe: Die Anzahl der Zeilen der Produktmatrix ist die Anzahl der Zeilen der ersten Matrix und die Anzahl der Spalten der Produktmatrix ist die Anzahl der Spalten der zweiten Matrix.
+Der \textit{Bezug} zwischen den Vektoren einer Umgebung ist durch die Verknüpfung, d.h., die Operation wie der Addition oder Multiplikation, im Ergebnis der Operation gegeben. Ist das Ergebnis der Operation $\boldsymbol{0}$, dann gibt es keinen Bezug. Ist das Ergebnis der Operation $\boldsymbol{w}$ und $\boldsymbol{w} \neq \boldsymbol{0}$, dann gibt es einen Bezug. Dieser Bezug oder, allgemeiner, diese Beziehungen werden veranschaulicht in den bekannten Operationen für Vektoren, das sind die Vektoraddition und die Vektormultiplikation. Insbesondere wird der Bezug aber auch beschrieben durch die Projektion $\boldsymbol{w}$ durch $\boldsymbol{u}$ und $\boldsymbol{v}$.
+
+\begin{definition}
+	Die Summe zweier Vektoren $\boldsymbol{u} = (u_1, \ldots, u_n)$ und $\boldsymbol{v} = (v_1, \ldots, v_n)$ ist gegeben durch $$\boldsymbol{u} + \boldsymbol{v} = (u_1 + w_1, \ldots, u_n + w_n) = \boldsymbol{w},$$ wobei $\boldsymbol{u}$, $\boldsymbol{v}$ und $\boldsymbol{w}$ jeweils Größe $n$ haben.
+\end{definition}
+\begin{definition}
+	Die Produkt zweier Vektoren $\boldsymbol{u} = (u_1, \ldots, u_n)$ und $\boldsymbol{v} = (v_1, \ldots, v_n)$ ist gegeben durch $$\boldsymbol{u} \cdot \boldsymbol{v} = (u_1 \cdot w_1, \ldots, u_n \cdot w_n) = \boldsymbol{w},$$ wobei $\boldsymbol{u}$, $\boldsymbol{v}$ und $\boldsymbol{w}$ jeweils Größe $n$ haben.
+\end{definition}
+Es fällt auf, dass die Verknüpfung der Addition für die Vektoren $\boldsymbol{u}$ und $\boldsymbol{v}$ für die Verknüpfung der Multiplikation durch die Addition ersetzt wird. Bei der Definition der Addition und der Multiplikation sind die Elemente $v_i$ der Vektoren reelle Zahlen, d.h., $v_i \in \mathbb{R}$. Diese Definition der Addition und der Multiplikation für die Vektoren $\boldsymbol{u}$ und $\boldsymbol{v}$ gilt aber auch, wenn die Elemente $v_i$ der Vektoren binäre Zahlen sind, d.h., $v_i \in \{0, 1\}$. Dabei steht die Summe der Vektoren für die logische ODER-Verknüpfung, kurz $\lor$, und das Produkt der Vektoren für die logische UND-Verknüpfung, kurz $\land$.
+
+Es ist bekannt, dass bei der Matrixaddition oder -multiplikation zwei Matrizen im Allgemeinen nicht miteinander addiert oder multipliziert werden können. Zwei Matrizen können zum Beispiel nur dann miteinander multipliziert werden, wenn die Anzahl der Spalten der ersten Matrix gerade die Anzahl der Zeilen der zweiten Matrix ist. Erst dann ergibt das Produkt der beiden Matrizen wieder eine Matrix mit entsprechender Größe. Die Anzahl der Zeilen der Produktmatrix ist die Anzahl der Zeilen der ersten Matrix und die Anzahl der Spalten der Produktmatrix ist die Anzahl der Spalten der zweiten Matrix.
+
+\begin{definition}
+	Die Summe zweier Matrizen $A$ und $B$ ist gegeben durch 
+	$$A + B = (\boldsymbol{a_1} \: \ldots \: \boldsymbol{a_m}) + (\boldsymbol{b_1} \: \ldots \: \boldsymbol{b_m}) = (\boldsymbol{a_1} + \boldsymbol{b_1} \: \ldots \: \boldsymbol{a_m} + \boldsymbol{b_m}) = C,$$ wobei $A$ eine $n \times m$ Matrix, $B$ eine $n \times m$ Matrix und $C$ eine $n \times m$ Matrix ist.
+\end{definition}
+Die Matrix $C$ als Summe von $A$ und $B$ wird gebildet durch die paarweise Addition $(\boldsymbol{a_1} + \boldsymbol{b_1} \: \ldots \: \boldsymbol{a_m} + \boldsymbol{b_m})$ der Vektoren $(\boldsymbol{a_1} \: \ldots \: \boldsymbol{a_m})$ und $(\boldsymbol{b_1} \: \ldots \: \boldsymbol{b_m})$.
+\begin{definition}
+	Das Produkt zweier Matrizen $A$ und $B$ ist gegeben durch 
+	$$A \cdot B = C = (c_{ij}), \text{ mit } c_{ij} = \sum_{k=1}^{r}a_{ik}b_{kj},$$ wobei $A$ eine $n \times r$ Matrix, $B$ eine $r \times m$ Matrix und $C$ eine $n \times m$ Matrix ist.
+\end{definition}
+Die Produktmatrix $C$ mit $C = (c_{ij})$ wird gebildet durch die Summe $\sum_{k=1}^{r}a_{ik}b_{kj}$ über alle $1 \leq i \leq n$ und alle $1 \leq j \leq m$ für $c_{ij}$. Dabei werden für das Element $c_{ij}$ genau $r$ Summanden $a_{ik}b_{kj}$ über alle $1 \leq k \leq r$ addiert.
 
 \chapter{Anwendungen}
 Zur Anwendung der grundlegenden Definitionen der Strukturen und Verknüpfungen werden in diesem Kapitel konkreten Vorgehensweisen zur Verknüpfung der Strukturen beschrieben.
