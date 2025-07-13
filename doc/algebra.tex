@@ -83,9 +83,11 @@ Es ist bekannt, dass bei der Vektoraddition oder -multiplikation zwei Vektoren i
 Der \textit{Bezug} zwischen den Vektoren einer Umgebung ist durch die Verknüpfung, d.h., die Operation wie der Addition oder Multiplikation, im Ergebnis der Operation gegeben. Ist das Ergebnis der Operation $\boldsymbol{0}$, dann gibt es keinen Bezug. Ist das Ergebnis der Operation $\boldsymbol{w}$ und $\boldsymbol{w} \neq \boldsymbol{0}$, dann gibt es einen Bezug. Dieser Bezug oder, allgemeiner, diese Beziehungen werden veranschaulicht in den bekannten Operationen für Vektoren, das sind die Vektoraddition und die Vektormultiplikation. Insbesondere wird der Bezug aber auch beschrieben durch die Projektion $\boldsymbol{w}$ durch $\boldsymbol{u}$ und $\boldsymbol{v}$.
 
 \begin{definition}
+	\label{def:vektor-summe}
 	Die Summe zweier Vektoren $\boldsymbol{u} = (u_1, \ldots, u_n)$ und $\boldsymbol{v} = (v_1, \ldots, v_n)$ ist gegeben durch $$\boldsymbol{u} + \boldsymbol{v} = (u_1 + w_1, \ldots, u_n + w_n) = \boldsymbol{w},$$ wobei $\boldsymbol{u}$, $\boldsymbol{v}$ und $\boldsymbol{w}$ jeweils Größe $n$ haben.
 \end{definition}
 \begin{definition}
+	\label{def:vektor-produkt}
 	Die Produkt zweier Vektoren $\boldsymbol{u} = (u_1, \ldots, u_n)$ und $\boldsymbol{v} = (v_1, \ldots, v_n)$ ist gegeben durch $$\boldsymbol{u} \cdot \boldsymbol{v} = (u_1 \cdot w_1, \ldots, u_n \cdot w_n) = \boldsymbol{w},$$ wobei $\boldsymbol{u}$, $\boldsymbol{v}$ und $\boldsymbol{w}$ jeweils Größe $n$ haben.
 \end{definition}
 Es fällt auf, dass die Verknüpfung der Addition für die Vektoren $\boldsymbol{u}$ und $\boldsymbol{v}$ für die Verknüpfung der Multiplikation durch die Addition ersetzt wird. Bei der Definition der Addition und der Multiplikation sind die Elemente $v_i$ der Vektoren reelle Zahlen, d.h., $v_i \in \mathbb{R}$. Diese Definition der Addition und der Multiplikation für die Vektoren $\boldsymbol{u}$ und $\boldsymbol{v}$ gilt aber auch, wenn die Elemente $v_i$ der Vektoren binäre Zahlen sind, d.h., $v_i \in \{0, 1\}$. Dabei steht die Summe der Vektoren für die logische ODER-Verknüpfung, kurz $\lor$, und das Produkt der Vektoren für die logische UND-Verknüpfung, kurz $\land$.
@@ -104,13 +106,30 @@ Die Matrix $C$ als Summe von $A$ und $B$ wird gebildet durch die paarweise Addit
 Die Produktmatrix $C$ mit $C = (c_{ij})$ wird gebildet durch die Summe $\sum_{k=1}^{r}a_{ik}b_{kj}$ über alle $1 \leq i \leq n$ und alle $1 \leq j \leq m$ für $c_{ij}$. Dabei werden für das Element $c_{ij}$ genau $r$ Summanden $a_{ik}b_{kj}$ über alle $1 \leq k \leq r$ addiert.
 
 \section{Körper}
-Warum sind Vektoren in ihrer Struktur so wohl geformt in dem Sinne, dass die Verknüpfung durch Addition oder Multiplikation einfach ersetzt werden kann? Sie bilden einen Körper mit einfachen Eigenschaften. Matrizen haben diese Eigenschaft hinsichtlich der Verknüpfung nicht. Die Addition kann nicht einfach durch die Multiplikation ersetzt werden, da die Struktur der Matrix aufwendiger ist in der Anwendung der Multiplikation. Der Aufwand für eine einfache Vorgehensweise zur Multiplikation von zwei Matrizen hat eine Laufzeit von $O(n^3)$, wenn zwei $n \times n$ Matrizen multipliziert werden. Vektoren dagegen können paarweise multipliziert werden. Der Aufwand für eine einfache Vorgehensweise zur Multiplikation von zwei Vektoren hat daher eine Laufzeit von $O(n)$. Es wurde bereits darauf eingegangen, dass die Verknüpfungen (Addition und Multiplikation) bei Vektoren sowohl für Elemente aus den reellen als auch den binären Zahlen gelten.
+Warum sind Vektoren in ihrer Struktur so wohl geformt in dem Sinn, dass die Verknüpfung der Addition einfach durch die Multiplikation oder die Verknüpfung der Multiplikation einfach durch die Addition ersetzt werden kann? Die Vektoren bilden einen Körper mit einfachen Eigenschaften. Matrizen haben diese Eigenschaft in der Verknüpfung nicht. Die Addition kann nicht einfach durch die Multiplikation ersetzt werden, da die Struktur der Matrix aufwendiger ist in der Anwendung der Multiplikation. Der Aufwand für eine einfache Vorgehensweise zur Multiplikation von zwei Matrizen hat eine Laufzeit von $O(n^3)$, wenn zwei $n \times n$ Matrizen multipliziert werden. Vektoren dagegen können paarweise multipliziert werden. Der Aufwand für eine einfache Vorgehensweise zur Multiplikation von zwei Vektoren hat im Vergleich dazu eine Laufzeit von $O(n)$. Es wurde bereits darauf eingegangen, dass die Verknüpfungen (Addition und Multiplikation) bei Vektoren sowohl für Elemente aus den reellen als auch den binären Zahlen gelten.
 
-Wie verhalten sich die Vektoren hinsichtlich des neutralen Elements und des inversen Elements? Wie verhalten sich Vektoren im Bereich der komplexen Zahlen? Welche Vorteile hat es, dass Vektoren die Struktur eines Körpers haben? Eignen sie sich aus analytischer und algebraischer Sicht besonders? Geht es mehr um die Instanzen dieses Körpers, welche die konkreten Vektoren dann sind und damit eine angenehme Behandlung hinsichtlich maximal vieler Verknüpfungen auf ihnen ermöglichen? Für welchen Wertebereich sind Instanzen des Körpers immer noch Instanzen des Körpers, nur für die reellen Zahlen und die binären Zahlen? Ist es das Ziel beim Finden von Eigenschaften eines Körpers besonders viele charakteristische Eigenschaften zu finden? Klar ist, je mehr charakteristische Eigenschaften ein Körper hat, desto weniger wahrscheinlich ist es, dass es Instanzen dieses Körpers auf möglichst vielen Verknüpfungen und Wertebereichen gibt. Bei der Untersuchung dieser Frage geht es um die Verknüpfungen und die Wertebereiche. Denn in ihrer Kombination wird das Ergebnis bestimmt und sichtbar, ob eine Instanz des Körpers noch Instanz des Körpers ist. Es muss um Verknüpfungen und Wertebereiche gehen. Werden die Verknüpfungen nicht betrachtet, lässt sich kein Ergebnis berechnen. Wird der Wertebereich nicht betrachtet, lässt sich auch kein Ergebnis in einem konkreten Wertebereich wie den reellen oder binären Zahlen berechnen.
-\begin{definition}
-	Die folgenden charakteristischen Eigenschaften sind ausreichend für einen wohl geformten Körper: (1) Verknüpfungen: die Addition und Multiplikation und (2) der Wertebereich.
-\end{definition}
-Es reicht für einen wohl geformten Körper, die Verknüpfungen und die Wertebereiche zu betrachten. Werden weitere Eigenschaften wie das neutrale oder das inverse Element als charakteristische Eigenschaften betrachtet, geht dies mit mehr Aufwand in der Behandlung solcher Instanzen einher. Dies wird zum Beispiel daran deutlich, dass der Körper, wie ursprünglich definiert, die 1 als neutrales Element hat aber der Ring, wie ursprünglich definiert, nicht.
+Wie verhalten sich die Vektoren hinsichtlich des neutralen Elements und des inversen Elements? Wie verhalten sich Vektoren im Bereich der komplexen Zahlen? Welche Vorteile hat es, dass Vektoren die Struktur eines Körpers haben? Eignen sich die Vektoren aus algebraischer und analytischer Sicht besonders? Geht es mehr um die Instanzen dieses Körpers, welche die konkreten Vektoren dann sind und damit eine angenehme Behandlung hinsichtlich maximal vieler Verknüpfungen auf ihnen ermöglichen? Für welchen Wertebereich sind Instanzen des Körpers immer noch Instanzen des Körpers, nur für die reellen Zahlen und die binären Zahlen? Ist es das Ziel beim Finden von charakteristische Eigenschaften eines Körpers besonders viele charakteristische Eigenschaften zu finden? 
+\begin{satz}
+	Diese charakteristischen Eigenschaften bilden einen wohl geformten Körper: (1) die Verknüpfungen: Addition und Multiplikation und (2) der Wertebereich.
+\end{satz}
+\begin{proof}
+	Klar ist, je mehr charakteristische Eigenschaften ein Körper hat, desto weniger wahrscheinlich ist es, dass es Instanzen dieses Körpers auf möglichst vielen Verknüpfungen und Wertebereichen gibt. Bei der Untersuchung dieser Frage geht es um die Verknüpfungen und die Wertebereiche. Denn in ihrer Kombination wird das Ergebnis bestimmt und sichtbar, ob eine Instanz des Körpers noch Instanz des Körpers ist. Es muss also um Verknüpfungen und Wertebereiche gehen. Werden die Verknüpfungen nicht betrachtet, lässt sich kein Ergebnis berechnen, da die Instanzen miteinander noch nicht mal zu einem Ergebnis kombiniert werden. Wird der Wertebereich nicht betrachtet, lässt sich auch kein Ergebnis in einem konkreten Wertebereich wie den reellen oder binären Zahlen berechnen.
+
+	Es reicht für einen wohl geformten Körper, die Verknüpfungen und die Wertebereiche zu betrachten. Werden weitere Eigenschaften wie das neutrale oder das inverse Element als charakteristische Eigenschaften betrachtet, geht dies mit mehr Aufwand in der Anwendung der Verknüpfungen für solche Instanzen einher. Dies wird zum Beispiel daran deutlich, dass der Körper, wie ursprünglich definiert, die 1 als neutrales Element hat aber der Ring, wie ursprünglich definiert, nicht.
+\end{proof}
+
+\begin{lemma}
+	Die Vektoren bilden einen wohl geformten Körper für reelle oder binäre Zahlen.
+\end{lemma}
+\begin{proof}
+	Der Beweis geht daraus hervor, dass Vektoren diese charakteristischen Eigenschaften haben: (1) Die Verknüpfungen wie  Addition und Multiplikation wie in Definition \ref{def:vektor-summe} und Definition \ref{def:vektor-produkt} definiert für die (2) Wertebereiche der reellen oder binären Zahlen.
+\end{proof}
+\begin{satz}
+	Die Algebra ist Grundlage für die Analyse.
+\end{satz}
+\begin{proof}
+Ohne Algebra macht die Analyse keinen Sinn, denn ohne Wertebereiche, ob für natürliche, reelle oder komplexe Zahlen, lässt sich keine analytische Aussage über das Ergebnis einer Verknüpfung machen.
+\end{proof}
 
 Wenn Matrizen hinsichtlich der Matrixmultiplikation eine interessante Anwendung für Graphen haben, wird das auch auf jeden Fall gelten für den wohl geformten Körper der Vektoren. Betrachtet man bei der Multiplikation zweier Matrizen, dass die Addition durch $\min(\ldots)$, das Minimum, und die Multiplikation durch die Addition ersetzt wird, kann das All-Pairs-Shortest-Paths (APSP) Problem gelöst werden. Der Algorithmus \ref{alg:apsp-mm} berechnet in der Matrix $C$ die kürzeste Distanz für alle Knoten $i, j$ des Graphen unter Verwendung dieser modifizierten Matrixmultiplikation.
 \begin{algorithm}
@@ -133,7 +152,7 @@ Wenn Matrizen hinsichtlich der Matrixmultiplikation eine interessante Anwendung 
 \end{algorithm} Werden die Kanten des Graphen mit der Adjazenzmatrix $A$ beschrieben, dann wird Algorithmus \ref{alg:apsp-mm} mit APSP($A, A$) aufgerufen. Zur Ermittlung von $C$ benötigt Algorithmus \ref{alg:apsp-mm} eine Laufzeit von $O(n^3)$. Es lohnt sich also für den wohl geformten Körper der Vektoren effiziente Algorithmen zu entwickeln.
 
 \chapter{Anwendungen}
-Zur Anwendung der grundlegenden Definitionen der Strukturen und Verknüpfungen werden in diesem Kapitel konkreten Vorgehensweisen zur Verknüpfung der Strukturen beschrieben.
+Zur Anwendung der grundlegenden Definitionen der Strukturen und Verknüpfungen werden in diesem Kapitel konkrete Vorgehensweisen zur Verknüpfung der Strukturen beschrieben.
 
 \section{Matrixmultiplikation}
 Dieser Abschnitt beschreibt Vorgehensweisen zur Verknüpfung der Multiplikation auf der Struktur der Matrix. Dabei wird angenommen, dass zwei $n \times n$ Matrizen $A$ und $B$ multipliziert werden.
