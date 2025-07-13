@@ -112,7 +112,25 @@ Wie verhalten sich die Vektoren hinsichtlich des neutralen Elements und des inve
 \end{definition}
 Es reicht für einen wohl geformten Körper, die Verknüpfungen und die Wertebereiche zu betrachten. Werden weitere Eigenschaften wie das neutrale oder das inverse Element als charakteristische Eigenschaften betrachtet, geht dies mit mehr Aufwand in der Behandlung solcher Instanzen einher. Dies wird zum Beispiel daran deutlich, dass der Körper, wie ursprünglich definiert, die 1 als neutrales Element hat aber der Ring, wie ursprünglich definiert, nicht.
 
-Wenn Matrizen hinsichtlich der Matrixmultiplikation eine interessante Anwendung für Graphen haben, wie viel mehr muss das gelten für den wohl geformten Körper der Vektoren. Betrachtet man bei der Multiplikation zweier Matrizen, dass die Addition durch $min(\ldots)$, das Minimum, und die Multiplikation durch die Addition ersetzt wird, kann das All-Pairs-Shortest-Problem (APSP) gelöst werden. Es lohnt sich also für den wohl geformten Körper der Vektoren effiziente Algorithmen zu entwickeln.
+Wenn Matrizen hinsichtlich der Matrixmultiplikation eine interessante Anwendung für Graphen haben, wird das auch auf jeden Fall gelten für den wohl geformten Körper der Vektoren. Betrachtet man bei der Multiplikation zweier Matrizen, dass die Addition durch $\min(\ldots)$, das Minimum, und die Multiplikation durch die Addition ersetzt wird, kann das All-Pairs-Shortest-Paths (APSP) Problem gelöst werden. Der Algorithmus \ref{alg:apsp-mm} berechnet in der Matrix $C$ die kürzeste Distanz für alle Knoten $i, j$ des Graphen unter Verwendung dieser modifizierten Matrixmultiplikation.
+\begin{algorithm}
+	\caption{APSP($A, B$)}
+	\label{alg:apsp-mm}
+	\begin{algorithmic}[1]
+		\Require $\langle A, B\rangle$ mit $n \times n$ Matrix mit $A, B$
+		\Ensure $\langle C\rangle$ mit $n \times n$ Matrix $C$, die die Längen der kürzesten Wege aller $(i, j)$ enthält
+		\For{$i = 1 \text{ to } n$}
+		\For{$j = 1 \text{ to } n$}
+		\For{$k = 1 \text{ to } n$}
+		\If{$A[i][k] \neq \infty \text{ und } B[k][j] \neq \infty$}
+		\State $C[i][j] = \min(C[i][j], A[i][k] + B[k][j])$
+		\EndIf
+		\EndFor
+		\EndFor
+		\EndFor
+		\State \Return $C$
+	\end{algorithmic}
+\end{algorithm} Werden die Kanten des Graphen mit der Adjazenzmatrix $A$ beschrieben, dann wird Algorithmus \ref{alg:apsp-mm} mit APSP($A, A$) aufgerufen. Zur Ermittlung von $C$ benötigt Algorithmus \ref{alg:apsp-mm} eine Laufzeit von $O(n^3)$. Es lohnt sich also für den wohl geformten Körper der Vektoren effiziente Algorithmen zu entwickeln.
 
 \chapter{Anwendungen}
 Zur Anwendung der grundlegenden Definitionen der Strukturen und Verknüpfungen werden in diesem Kapitel konkreten Vorgehensweisen zur Verknüpfung der Strukturen beschrieben.
