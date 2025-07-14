@@ -136,7 +136,7 @@ Wenn Matrizen hinsichtlich der Matrixmultiplikation eine interessante Anwendung 
 	\caption{APSP($A, B$)}
 	\label{alg:apsp-mm}
 	\begin{algorithmic}[1]
-		\Require $\langle A, B\rangle$ mit $n \times n$ Matrix mit $A, B$
+		\Require $\langle A, B\rangle$ mit $n \times n$ Matrix $A$ und $B$
 		\Ensure $\langle C\rangle$ mit $n \times n$ Matrix $C$, die die Längen der kürzesten Wege aller $(i, j)$ enthält
 		\For{$i = 1 \text{ to } n$}
 		\For{$j = 1 \text{ to } n$}
@@ -159,6 +159,23 @@ Dieser Abschnitt beschreibt Vorgehensweisen zur Verknüpfung der Multiplikation 
 
 \subsection{Herkömmliche Multiplikation}
 Die herkömmliche Matrixmultiplikation ist gegeben durch ihre Definition und benötigt in der Anwendung eine Laufzeit von $O(n^3)$, wenn wir der Einfachheit davon ausgehen, dass zwei $n \times n$ Matrizen miteinander multipliziert werden.
+\begin{algorithm}
+	\caption{Matrixmultiplikation($A, B$)}
+	\label{alg:mm}
+	\begin{algorithmic}[1]
+		\Require $\langle A, B\rangle$ mit $n \times n$ Matrix $A$ und $B$
+		\Ensure $\langle C\rangle$ mit $n \times n$ Matrix $C = A \cdot B$
+		\For{$i = 1 \text{ to } n$}
+		\For{$j = 1 \text{ to } n$}
+		\For{$k = 1 \text{ to } n$}
+		\State $C[i][j] = C[i][j] + (A[i][k] \cdot B[k][j])$
+		\EndFor
+		\EndFor
+		\EndFor
+		\State \Return $C$
+	\end{algorithmic}
+\end{algorithm}
+Algorithmus \ref{alg:mm} zeigt die Vorgehensweise zur Berechnung der Produktmatrix $C = A \cdot B$.
 
 \subsection{Verbesserte Multiplikation}
 Es folgt der Algorithmus \ref{alg:strassen} von \textsc{Strassen}  als Pseudocode. Als Eingabe erhalten wir zwei $n \times n$ Matrizen. Der Einfachheit halber wird angenommen, dass $n$ eine Zweierpotenz ist.
