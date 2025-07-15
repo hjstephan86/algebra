@@ -105,6 +105,8 @@ Die Matrix $C$ als Summe von $A$ und $B$ wird gebildet durch die paarweise Addit
 \end{definition}
 Die Produktmatrix $C$ mit $C = (c_{ij})$ wird gebildet durch die Summe $\sum_{k=1}^{r}a_{ik}b_{kj}$ über alle $1 \leq i \leq n$ und alle $1 \leq j \leq m$ für $c_{ij}$. Dabei werden für das Element $c_{ij}$ genau $r$ Summanden $a_{ik}b_{kj}$ über alle $1 \leq k \leq r$ addiert.
 
+Es lohnt sich, den Schwerpunkt von Strukturen zu finden, wenn es ihn für eine bestimmte Struktur gibt. Denn in ihrem Schwerpunkt sind die Strukturen zu verknüpfen. Sie an anderer Stelle zu verknüpfen, ist vielleicht auch möglich. Nur kann dies den Aufwand der Verknüpfung erhöhen. Wieso haben Vektoren einen leichteren Schwerpunkt als Matrizen in der Verknüpfung der Multiplikation? Es sind zwei Vektoren und paarweise zwei Multiplikationen pro Element des Vektors. Es sind zwei Matrizen und paarweise aber mehr als zwei Multiplikationen pro Element der Matrix. Wo liegt der Schwerpunkt der Matrix hinsichtlich der Verknüpfung der Multiplikation?
+
 \section{Körper}
 Warum sind Vektoren in ihrer Struktur so wohl geformt in dem Sinn, dass die Verknüpfung der Addition einfach durch die Multiplikation oder die Verknüpfung der Multiplikation einfach durch die Addition ersetzt werden kann? Die Vektoren bilden einen Körper mit einfachen Eigenschaften. Matrizen haben diese Eigenschaft in der Verknüpfung nicht. Die Addition kann nicht einfach durch die Multiplikation ersetzt werden, da die Struktur der Matrix aufwendiger ist in der Anwendung der Multiplikation. Der Aufwand für eine einfache Vorgehensweise zur Multiplikation von zwei Matrizen hat eine Laufzeit von $O(n^3)$, wenn zwei $n \times n$ Matrizen multipliziert werden. Vektoren dagegen können paarweise multipliziert werden. Der Aufwand für eine einfache Vorgehensweise zur Multiplikation von zwei Vektoren hat im Vergleich dazu eine Laufzeit von $O(n)$. Es wurde bereits darauf eingegangen, dass die Verknüpfungen (Addition und Multiplikation) bei Vektoren sowohl für Elemente aus den reellen als auch den binären Zahlen gelten.
 
@@ -139,7 +141,7 @@ Wie verhalten sich die Vektoren hinsichtlich des neutralen Elements und des inve
 Ohne Algebra macht die Analyse keinen Sinn, denn ohne Wertebereiche, ob für natürliche, reelle oder komplexe Zahlen, lässt sich keine analytische Aussage über das Ergebnis einer Verknüpfung machen.
 \end{proof}
 
-Wenn Matrizen hinsichtlich der Matrixmultiplikation eine interessante Anwendung für Graphen haben, wird das auch auf jeden Fall gelten für den wohl geformten Körper der Vektoren. Betrachtet man bei der Multiplikation zweier Matrizen, dass die Addition durch $\min(\ldots)$, das Minimum, und die Multiplikation durch die Addition ersetzt wird, kann das All-Pairs-Shortest-Paths (APSP) Problem gelöst werden. Der Algorithmus \ref{alg:apsp-mm} berechnet in der Matrix $C$ die kürzeste Distanz für alle Knoten $i, j$ des Graphen unter Verwendung dieser modifizierten Matrixmultiplikation.
+Wenn Matrizen hinsichtlich der Matrixmultiplikation eine interessante Anwendung für Graphen haben, wird das auch auf jeden Fall gelten für den wohl geformten Körper der Vektoren.
 \begin{algorithm}
 	\caption{APSP($A, B$)}
 	\label{alg:apsp-mm}
@@ -157,7 +159,8 @@ Wenn Matrizen hinsichtlich der Matrixmultiplikation eine interessante Anwendung 
 		\EndFor
 		\State \Return $C$
 	\end{algorithmic}
-\end{algorithm} Werden die Kanten des Graphen mit der Adjazenzmatrix $A$ beschrieben, dann wird Algorithmus \ref{alg:apsp-mm} mit APSP($A, A$) aufgerufen. Zur Ermittlung von $C$ benötigt Algorithmus \ref{alg:apsp-mm} eine Laufzeit von $O(n^3)$. Es lohnt sich also für den wohl geformten Körper der Vektoren effiziente Algorithmen zu entwickeln.
+\end{algorithm}
+Betrachtet man bei der Multiplikation zweier Matrizen, dass die Addition durch $\min(\ldots)$, das Minimum, und die Multiplikation durch die Addition ersetzt wird, kann das All-Pairs-Shortest-Paths (APSP) Problem gelöst werden. Der Algorithmus \ref{alg:apsp-mm} berechnet in der Matrix $C$ die kürzeste Distanz für alle Knoten $i, j$ des Graphen unter Verwendung dieser modifizierten Matrixmultiplikation. Werden die Kanten des Graphen mit der Adjazenzmatrix $A$ beschrieben, dann wird Algorithmus \ref{alg:apsp-mm} mit APSP($A, A$) aufgerufen. Zur Ermittlung von $C$ benötigt Algorithmus \ref{alg:apsp-mm} eine Laufzeit von $O(n^3)$. Es lohnt sich also für den wohl geformten Körper der Vektoren effiziente Algorithmen zu entwickeln.
 
 \chapter{Anwendungen}
 \label{chap:anwendungen}
