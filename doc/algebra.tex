@@ -1,4 +1,4 @@
-\documentclass[oneside]{scrbook}
+\documentclass{report}
 \usepackage[a4paper, total={6in, 10in}]{geometry}
 \usepackage[ngerman]{babel}
 
@@ -51,17 +51,17 @@ Zu beachten ist, dass der Vektor $\boldsymbol{v}$ fett geschrieben ist. Zum Beis
 	Eine Matrix $A$ aus dem Raum $\mathbb{R}^{n \times m}$ hat die Größe $n \times m$ und besteht aus $n$ Zeilen und $m$ Spalten, wobei jedes Element $a_{ij} \in \mathbb{R}$.
 \end{definition}
 \begin{definition}
-   	Zwei Vektoren $\boldsymbol{u}$ und $\boldsymbol{v}$ projezieren den Vektor $\boldsymbol{w}$ genau dann, wenn es Konstanten $k_1$ und $k_2$ gibt, so dass $$k_1 \boldsymbol{u} + k_2\boldsymbol{v} = \boldsymbol{w} \neq \boldsymbol{0},$$ dabei haben $\boldsymbol{u}$, $\boldsymbol{v}$ und $\boldsymbol{w}$ dieselbe Größe und $k_i \in \mathbb{R}$, $k_i \neq 0$.
+   	Zwei Vektoren $\boldsymbol{u}$ und $\boldsymbol{v}$ projizieren den Vektor $\boldsymbol{w}$ genau dann, wenn es Konstanten $k_1$ und $k_2$ gibt, so dass $$k_1 \boldsymbol{u} + k_2\boldsymbol{v} = \boldsymbol{w} \neq \boldsymbol{0},$$ dabei haben $\boldsymbol{u}$, $\boldsymbol{v}$ und $\boldsymbol{w}$ dieselbe Größe und $k_i \in \mathbb{R}$, $k_i \neq 0$.
 \end{definition}
 Das heißt, die Vektoren $\boldsymbol{u}$ und $\boldsymbol{v}$ bilden eine \textit{Projektion} $\boldsymbol{w}$ in Abhängigkeit der Konstanten $k_1$, $k_2$, wobei die Konstanten nicht den Wert null haben.
 \begin{definition}
 	Für die Projektion $\boldsymbol{w}$ durch die Vektoren $\boldsymbol{u}$ und $\boldsymbol{v}$ liegen $\boldsymbol{u}$ und $\boldsymbol{v}$ in der Umgebung von $\boldsymbol{w}$ im Raum $\mathbb{R}^n$, wobei $\boldsymbol{u}$, $\boldsymbol{v}$ und $\boldsymbol{w}$ jeweils Größe $n$ haben.
 \end{definition}
-Nicht alle Vektoren $\boldsymbol{u}$ und $\boldsymbol{v}$ liegen in der Umgebung von $\boldsymbol{w}$. Es gibt Vektoren im Raum $\mathbb{R}^n$, durch die $\boldsymbol{w}$ niemals projeziert werden kann.
+Nicht alle Vektoren $\boldsymbol{u}$ und $\boldsymbol{v}$ liegen in der Umgebung von $\boldsymbol{w}$. Es gibt Vektoren im Raum $\mathbb{R}^n$, durch die $\boldsymbol{w}$ niemals projiziert werden kann.
 \begin{definition}
 	Eine Projektion $\boldsymbol{w}$ durch die Vektoren $\boldsymbol{u}$ und $\boldsymbol{v}$ und Konstanten $k_1$, $k_2$ ist minimal, wenn für alle Konstanten $k_i$ gilt, wird eine Konstante $k_i = 0$, dann ist $$k_1 \boldsymbol{u} + k_2\boldsymbol{v} = \boldsymbol{0}.$$
 \end{definition}
-Das bedeutet, wenn eine minimale Projektion gefunden wurde, entferne die eine Konstante $k$, d.h., $k = 0$, und erhalte mit $k_1 \boldsymbol{u} + k_2\boldsymbol{v} = \boldsymbol{0}$ die \textit{größte Einheit}, mit der, egal wie ihre Vektoren miteinander kombiniert werden, nichts mehr projeziert werden kann außer $\boldsymbol{0}$. Damit wurde eine größte und nicht mehr projezierbare Einheit gefunden, der \textit{Kern}.
+Das bedeutet, wenn eine minimale Projektion gefunden wurde, entferne die eine Konstante $k$, d.h., $k = 0$, und erhalte mit $k_1 \boldsymbol{u} + k_2\boldsymbol{v} = \boldsymbol{0}$ die \textit{größte Einheit}, mit der, egal wie ihre Vektoren miteinander kombiniert werden, nichts mehr projiziert werden kann außer $\boldsymbol{0}$. Damit wurde eine größte und nicht mehr projizierbare Einheit gefunden, der \textit{Kern}.
 
 Der Kern in seiner Umgebung des Raumes ist nicht teilbar, er kann nicht weiter reduziert werden. Der \textit{triviale Kern} besteht nur aus den Vektoren, bei denen jeweils nur ein Element den Wert eins hat, sonst haben alle anderen Elemente den Wert null.
 \begin{definition}
@@ -78,6 +78,7 @@ Es ist beachten, dass bei den Vektoren $\boldsymbol{e_1}, \ldots, \boldsymbol{e_
 $$ k_1\boldsymbol{e_1} + k_2\boldsymbol{e_2} + k_3\boldsymbol{e_3} + k_4\boldsymbol{e_4} = \boldsymbol{0},$$ egal, welchen Wert die Konstanten $k_i \in \mathbb{R} $ annehmen. In dieser Ordnung $\boldsymbol{e_1}, \ldots, \boldsymbol{e_4}$ bilden sie die Einheitsmatrix und auch einen Kern im Raum $\mathbb{R}^{4 \times 4}$. 
 
 \section{Verknüpfungen}
+\label{sec:verknüpfungen}
 Es ist bekannt, dass bei der Vektoraddition oder -multiplikation zwei Vektoren im Allgemeinen nicht miteinander addiert oder multipliziert werden können. Zwei Vektoren können zum Beispiel nur dann miteinander multipliziert werden, wenn sie dieselbe Größe haben. Erst dann ergibt das Produkt der beiden Vektoren wieder einen Vektor derselben Größe.
 
 Der \textit{Bezug} zwischen den Vektoren einer Umgebung ist durch die Verknüpfung, d.h., die Operation wie der Addition oder Multiplikation, im Ergebnis der Operation gegeben. Ist das Ergebnis der Operation $\boldsymbol{0}$, dann gibt es keinen Bezug. Ist das Ergebnis der Operation $\boldsymbol{w}$ und $\boldsymbol{w} \neq \boldsymbol{0}$, dann gibt es einen Bezug. Dieser Bezug oder, allgemeiner, diese Beziehungen werden veranschaulicht in den bekannten Operationen für Vektoren, das sind die Vektoraddition und die Vektormultiplikation. Insbesondere wird der Bezug aber auch beschrieben durch die Projektion $\boldsymbol{w}$ durch $\boldsymbol{u}$ und $\boldsymbol{v}$.
@@ -105,7 +106,7 @@ Die Matrix $C$ als Summe von $A$ und $B$ wird gebildet durch die paarweise Addit
 \end{definition}
 Die Produktmatrix $C$ mit $C = (c_{ij})$ wird gebildet durch die Summe $\sum_{k=1}^{r}a_{ik}b_{kj}$ über alle $1 \leq i \leq n$ und alle $1 \leq j \leq m$ für $c_{ij}$. Dabei werden für das Element $c_{ij}$ genau $r$ Summanden $a_{ik}b_{kj}$ über alle $1 \leq k \leq r$ addiert.
 
-Es lohnt sich, den Schwerpunkt von Strukturen zu finden, wenn es ihn für eine bestimmte Struktur gibt. Denn in ihrem Schwerpunkt sind die Strukturen zu verknüpfen. Sie an anderer Stelle zu verknüpfen, ist vielleicht auch möglich. Nur kann dies den Aufwand der Verknüpfung erhöhen. Wieso haben Vektoren einen leichteren Schwerpunkt als Matrizen in der Verknüpfung der Multiplikation? Es sind zwei Vektoren und paarweise zwei Multiplikationen pro Element des Vektors. Es sind zwei Matrizen und paarweise aber mehr als zwei Multiplikationen pro Element der Matrix. Wo liegt der Schwerpunkt der Matrix hinsichtlich der Verknüpfung der Multiplikation?
+Es lohnt sich, den Schwerpunkt von Strukturen für eine bestimme Verknüpfung zu finden, wenn es ihn für eine bestimmte Struktur gibt. Denn in ihrem Schwerpunkt lassen sich die Strukturen effizient verknüpfen. Sie an anderer Stelle zu verknüpfen, ist vielleicht auch möglich. Nur kann dies den Aufwand der Verknüpfung erhöhen. Wieso haben Vektoren einen leichteren Schwerpunkt als Matrizen in der Verknüpfung der Multiplikation? Es sind zwei Vektoren und paarweise zwei Multiplikationen pro Element des Vektors. Es sind zwei Matrizen und paarweise aber mehr als zwei Multiplikationen pro Element der Matrix. Wo liegt der Schwerpunkt der Matrix hinsichtlich der Verknüpfung der Multiplikation?
 
 \section{Körper}
 Warum sind Vektoren in ihrer Struktur so wohl geformt in dem Sinn, dass die Verknüpfung der Addition einfach durch die Multiplikation oder die Verknüpfung der Multiplikation einfach durch die Addition ersetzt werden kann? Die Vektoren bilden einen Körper mit einfachen Eigenschaften. Matrizen haben diese Eigenschaft in der Verknüpfung nicht. Die Addition kann nicht einfach durch die Multiplikation ersetzt werden, da die Struktur der Matrix aufwendiger ist in der Anwendung der Multiplikation. Der Aufwand für eine einfache Vorgehensweise zur Multiplikation von zwei Matrizen hat eine Laufzeit von $O(n^3)$, wenn zwei $n \times n$ Matrizen multipliziert werden. Vektoren dagegen können paarweise multipliziert werden. Der Aufwand für eine einfache Vorgehensweise zur Multiplikation von zwei Vektoren hat im Vergleich dazu eine Laufzeit von $O(n)$. Es wurde bereits darauf eingegangen, dass die Verknüpfungen (Addition und Multiplikation) bei Vektoren sowohl für Elemente aus den reellen als auch den binären Zahlen gelten.
@@ -358,7 +359,7 @@ Damit in jedem Rekursionsschritt die Produkte $A_{ij}B_{ij}$ effizient gespeiche
 	Es gibt keinen Teile-und-Herrsche Algorithmus zur Multiplikation von $n \times n$ Matrizen, der durch Nutzen von Abhängigkeiten weniger als 8 Matrixmultiplikationen benötigt und damit auch weniger als 5 Matrixmultiplikationen benötigt. 
 \end{satz}
 \begin{proof}
-	Angenommen, es gibt einen Teile-und-Herrsche Algorithmus zur Multiplikation von $n \times n$ Matrizen, der mit weniger als 5 Matrixmultiplikationen auskommt, dann muss dieser Algorithmus auch Abhängigkeiten $P_r = (P_s, P_t, A_{ij}B_{ij})$ verwenden, mit denen $P_r$ ermittelt werden kann, $r < 5$. Da $dim(A_{ij}) = dim(B_{ij}) = \frac{n}{2}$, ist es nicht möglich $C = AB$ zu berechnen. Das gesamte Bild der \textit{projezierten} Produktmatrix $C$ kann nur projeziert werden, wenn mindestens mehr als die Hälfte beider Matrizen $A_{ij}$ und $B_{ij}$ zum Projezieren verfügbar ist.
+	Angenommen, es gibt einen Teile-und-Herrsche Algorithmus zur Multiplikation von $n \times n$ Matrizen, der mit weniger als 5 Matrixmultiplikationen auskommt, dann muss dieser Algorithmus auch Abhängigkeiten $P_r = (P_s, P_t, A_{ij}B_{ij})$ verwenden, mit denen $P_r$ ermittelt werden kann, $r < 5$. Da $dim(A_{ij}) = dim(B_{ij}) = \frac{n}{2}$, ist es nicht möglich $C = AB$ zu berechnen. Das gesamte Bild der \textit{projizierten} Produktmatrix $C$ kann nur projiziert werden, wenn mindestens mehr als die Hälfte beider Matrizen $A_{ij}$ und $B_{ij}$ zum Projezieren verfügbar ist.
 \end{proof}
 \begin{satz}
 	Das optimale Teile-und-Herrsche Prinzip ist die effizienteste Methode, um Probleme zu lösen, wenn die Probleminstanz bei jedem rekursiven Aufruf halbiert wird. 
@@ -435,19 +436,33 @@ Die Wahl des geeigneten Algorithmus zur Matrixmultiplikation hängt stark von de
 	\item \textbf{Sehr große Matrizen} ($n \ge 10.000$): Bei großen Matrizen, wie sie in Big Data Analysen oder beim Training umfangreicher Deep-Learning-Modelle auftreten, wird der Bedarf an Alternativen zu optimierten Standardalgorithmen deutlich. Damit gewinnt der Algorithmus von \textsc{Strassen} an Attraktivität und Relevanz für die Bewältigung rechenintensiver Multiplikationen.
 \end{enumerate}
 
-\section{Matrixoperationen}
-Eine Überlegung ist die folgende: Halte die Wertebereiche von Elementen einer Matrix in ihrer Größe klein, finde die Menge aller Kerne, mit Hilfe derer Ergebnisse von Matrixoperationen effizienter nachgeschaut werden können. Vergrößere den Wertebereich um ein Delta, das für das effizientere Nachschauen im vergrößerten Wertebereich genutzt wird.
-
 \section{Finden von Kernen}
-In der Beweisführung, dass es keinen Teile-und-Herrsche Algorithmus zur Multiplikation von $n \times n$ Matrizen gibt, der weniger als 5 Matrixmultiplikationen benötigt, wurde die Eigenschaft des Projezierens genutzt. Zwei Vektoren $\boldsymbol{u}$ und $\boldsymbol{v}$ projezieren $\boldsymbol{w}$ genau dann, wenn es Konstanten $k_1$ und $k_2$ gibt, so dass $$k_1 \boldsymbol{u} + k_2\boldsymbol{v} = \boldsymbol{w} \neq \boldsymbol{0}.$$ Es ist im Allgemeinen von Interesse, eine minimale Projektion zu finden: Finde eine minimale Projektion, nimm noch eine Konstante $k$ weg, dann ist es die \textit{größte Einheit}, die aus sich heraus, egal wie, nichts mehr projezieren kann außer $\boldsymbol{0}$. Die Idee des Algorithmus von \textsc{Strassen-25} eignet sich zum Finden von größten, nicht projezierbaren Einheiten.
+In der Beweisführung, dass es keinen Teile-und-Herrsche Algorithmus zur Multiplikation von $n \times n$ Matrizen gibt, der weniger als 5 Matrixmultiplikationen benötigt, wurde die Eigenschaft des Projizierens genutzt. Zwei Vektoren $\boldsymbol{u}$ und $\boldsymbol{v}$ projizieren $\boldsymbol{w}$ genau dann, wenn es Konstanten $k_1$ und $k_2$ gibt, so dass $$k_1 \boldsymbol{u} + k_2\boldsymbol{v} = \boldsymbol{w} \neq \boldsymbol{0}.$$ Es ist im Allgemeinen von Interesse, eine minimale Projektion zu finden: Finde eine minimale Projektion, nimm noch eine Konstante $k$ weg, dann ist es die \textit{größte Einheit}, die aus sich heraus, egal wie, nichts mehr projizieren kann außer $\boldsymbol{0}$. Die Idee des Algorithmus von \textsc{Strassen-25} eignet sich zum Finden von Kernen.
+
+\section{Effiziente Verknüpfung}
+Matrizen bilden keinen wohl geformten Körper. Es ist daher von Interesse zu untersuchen, wie sich die Struktur der Matrix effizient verknüpfen lässt unabhängig von der konkreten Verknüpfung. Eine mögliche Vorgehensweise für das effiziente Verknüpfen ist die folgende: 
+\begin{enumerate}
+	\item Halte die Wertebereiche von Elementen einer Matrix in ihrer Größe klein
+	\item Finde die Menge aller Kerne
+	\item Projeziere mit Hilfe der Kerne das Ergebnis der konkreten Verknüpfung
+	\item Vergrößere den Wertebereich um ein Delta
+	\item Wiederhole Schritte 1 - 4 für die Projektion mit dem neuen Wertebereich
+\end{enumerate}
+Mit diesem Vorgehen bleibt das Finden aller Kerne für einen kleinen Wertebereich lösbar. Daher lassen sich alle Ergebnisse für den kleinen Wertebereich mit Hilfe aller Kerne in dem konkreten Raum projizieren. Je öfter dieses Vorgehen wiederholt und die Wertebereiche vergrößert werden, desto aufwendiger wird es.
 
 \chapter{Zusammenfassung}
-In dieser Arbeit werden die grundlegenden Strukturen der Algebra wie Vektoren und Matrizen definiert. Sie werden als Strukturen verstanden, die durch Verknüpfungen miteinander verbunden sind. Vektoren sind dabei eine besondere Struktur. Sie bilden einen wohl geformten Körper. Es wird gezeigt, dass die charakteristischen Eigenschaften eines wohl geformten Körpers gebildet werden durch: (1) die Verknüpfungen: Addition und Multiplikation und (2) den Wertebereich.
+In dieser Arbeit werden die grundlegenden Strukturen der Algebra wie Vektoren und Matrizen definiert. Sie werden als Strukturen verstanden, die durch Verknüpfungen miteinander verbunden sind. Vektoren sind dabei eine besondere Struktur. Sie bilden einen wohl geformten Körper. Es wird gezeigt, dass die charakteristischen Eigenschaften eines wohl geformten Körpers gebildet werden durch: (1) die Verknüpfungen: Addition und Multiplikation und (2) den Wertebereich. Vektoren bilden einen wohl geformten Körper. Es wird gezeigt, dass die 1 und die wichtigste Zahl ist und dass die binären Zahlen $\{0, 1\}$ die wichtigsten Zahlen sind. Die Algebra ist Grundlage für die Analyse, da die Analyse ohne Wertebereiche nicht möglich ist.
 
 In Kapitel \ref{chap:anwendungen} wird die Matrixmultiplikation und der Algorithmus von \textsc{Strassen} zur effizienten Multiplikation von Matrizen vorgestellt. Der \textsc{Strassen}-Algorithmus multipliziert zwei $n \times n$ Matrizen $A$ und $B$ unter Verwendung von nur 7 Matrixmultiplikationen anstelle der üblichen 8. Die Laufzeit des Algorithmus wird durch die Rekurrenzgleichung $T(n) = 7 \cdot T\left(\frac{n}{2}\right) + c \cdot n^2$ beschrieben. Der Algorithmus von \textsc{Strassen} hat damit eine Laufzeit von $O(n^{2.8074})$, welche analysiert wird. Der Algorithmus wird in einem Pseudocode vorgestellt. Er unterteilt die Matrizen in 4 Teilmatrizen und berechnet 7 Produkte, die dann zur Berechnung der 4 Blöcke der Ergebnismatrix verwendet werden.
 
 Eine Methode zur Reduzierung der Matrixmultiplikationen von 7 auf 5 wird beschrieben, was die Laufzeit auf $O(n^{2.3219})$ senkt. Diese Optimierung nutzt die Diagonale der Matrix $B$ und erfordert vorherige Berechnungen der Produkte. Der Algorithmus \textsc{Strassen-25} setzt diese Methode um. Das \textit{optimale Teile-und-Herrsche Prinzip} wird vorgestellt und gezeigt, dass es die effizienteste Methode ist, um Probleme zu lösen, wenn die Probleminstanz bei jedem rekursiven Aufruf halbiert wird. Es wird gezeigt, dass schneller als mit Laufzeit $O(n^{2.3219})$ zwei $n \times n$ Matrizen \textit{nicht} multipliziert werden können.
 
 \section{Ausblick}
+In Kapitel \ref{sec:verknüpfungen} wurden Verknüpfungen wie die Addition und die Multiplikation beschrieben. Möchte man Strukturen effizient verknüpfen, sind sie in ihrem Schwerpunkt zu verknüpfen. Daher lohnt sich das Suchen des Schwerpunkts für Strukturen in einer konkreten Verknüpfung.
 
+Matrizen bilden keinen wohl geformten Körper. Vektoren bilden einen wohl geformten Körper. In der Verknüpfung der Multiplikation sind Matrizen aufwendiger in der Verknüpfung. Vektoren lassen sich effizienter verknüpfen in der Multiplikation. Es lohnt sich also Strukturen zu gebrauchen, die einen wohl geformten Körper bilden und für diese effiziente Algorithmen zu entwickeln.
+
+In Kapitel \ref{chap:anwendungen} wird der Algorithmus \textsc{Strassen-25} vorgestellt, der sich eignet für das Finden von Kernen. Es wird eine Vorgehensweise beschrieben, mit der für angemessen große Wertebereiche das Finden aller Kerne und das Projezieren aller Ergebnisse effizient möglich ist. Je öfter der Wertbereich erhöht wird, desto aufwendiger wird dieses Vorgehen.
+
+Betrachte das Problem des gewichteten perfekten Matchings. Wenn die Kanten Gewichte haben (z.B. Kosten), sucht man ein perfektes Matching mit minimalen Kosten. Der $\textsc{Hungarian}$ Algorithmus löst dieses Problem mit einer Laufzeit von $O(n^3)$, für einen vollständigen bipartiten Graphen mit $n$ Knoten auf beiden Seiten $V_1$ und $V_2$. Es ist zu prüfen, ob es für dieses Problem einen Schwerpunkt gibt und wie es dann im Schwerpunkt lösbar ist. Abbilden lässt sich das Problem auf Vektoren mit dem Wertebereich der binären Zahlen. Gibt es mit dem Schwerpunkt ein rekursives Verfahren, welches zu einer effizienteren Lösung führt?
 \end{document}
