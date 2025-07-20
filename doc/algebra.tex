@@ -397,8 +397,6 @@ Auffällig ist, dass nur das Problem, bei dem zwei Instanzen durch einen Operato
 
 \subsubsection{Erwartete Ergebnisse}
 Bei der Analyse der zu messenden Laufzeit von Algorithmus \textsc{Strassen-25} ist zu erwarten, dass dieser mit nur 5 Matrixmultiplikationen deutlich weniger Rechenzeit benötigt als der Algorithmus von \textsc{Strassen} mit 7 Matrixmultiplikationen.
-
-Die Tabelle \ref{tab:operations-comparison} zeigt die theoretische Anzahl benötigter Operationen für die Matrixmultiplikation in Abhängigkeit von $n$. Die Operationen sind elementare arithmetische Operationen wie Multiplikationen und Additionen/Subtraktionen von Skalaren. Die Anzahl der Operationen in der Tabelle sind asymptotisch und ignorieren konstante Faktoren, um die Skalierungseffekte zu betonen.
 \begin{table}[h]
 	\centering
 	\caption{Vergleich der theoretischen Anzahl an Operationen}
@@ -426,6 +424,8 @@ Die Tabelle \ref{tab:operations-comparison} zeigt die theoretische Anzahl benöt
 		\hline
 	\end{tabular}
 \end{table}
+Die Tabelle \ref{tab:operations-comparison} zeigt die theoretische Anzahl benötigter Operationen für die Matrixmultiplikation in Abhängigkeit von $n$. Die Operationen sind elementare arithmetische Operationen wie Multiplikationen und Additionen/Subtraktionen von Skalaren. Die Anzahl der Operationen in der Tabelle sind asymptotisch und ignorieren konstante Faktoren, um die Skalierungseffekte zu betonen.
+
 Die Wahl des geeigneten Algorithmus zur Matrixmultiplikation hängt stark von der Größe der Matrizen und dem spezifischen Anwendungsbereich ab. Interessant ist, dass schon für $n = 100$ nur $10^{4}$ Operationen benötigt werden von \textsc{Strassen-25} und dagegen $10^{5}$ Operationen von \textsc{Strassen}. Für $n \geq 10.000$ unterscheiden sich \textsc{Strassen-25} und \textsc{Strassen} um 2 Zehnerpotenzen und für $n \geq 10^8$ unterscheiden sie sich um 6 Zehnerpotenzen. Praktische Anwendungsbereiche für die $n \times n$ Matrixmultiplikation sind die folgenden:
 
 \begin{enumerate}
@@ -436,17 +436,22 @@ Die Wahl des geeigneten Algorithmus zur Matrixmultiplikation hängt stark von de
 	\item \textbf{Sehr große Matrizen} ($n \ge 10.000$): Bei großen Matrizen, wie sie in Big Data Analysen oder beim Training umfangreicher Deep-Learning-Modelle auftreten, wird der Bedarf an Alternativen zu optimierten Standardalgorithmen deutlich. Damit gewinnt der Algorithmus von \textsc{Strassen} an Attraktivität und Relevanz für die Bewältigung rechenintensiver Multiplikationen.
 \end{enumerate}
 
+\subsection{Deep-Learning}
+Die Idee des Deep-Learning ist, dass das Wissen eines neuronalen Netzes durch Gewichtsmatrizen $W_i$ beschrieben wird. Das neuronale Netz hat $s$ Ebenen und jeder Ebene wird eine Gewichtsmatrix $W_i$ für ein bestimmtes zu lernendes Merkmal zugeordnet. Die Eingabe für das Netzwerk ist ein Vektor $\boldsymbol{v}$, der in seiner charakteristischen Art vom Netzwerk gelernt werden soll und durch $s$ Merkmale beschrieben ist. Macht das Netzwerk auf einer Ebene beim Lernen des Merkmals einen Fehler, wird dieser durch Subtraktion korrigiert und die korrigierte Gewichtsmatrix $W^{'}_i$ für die nächste Berechnung in der Ebene $i$ verwendet. Für Ebene $i$ wurde $W^{'}_i$ also in Abhängigkeit des abweichenden Fehlers gelernt. Je kleiner die Fehler werden, desto besser sind die gelernten Gewichtsmatrizen $W^{'}_i$ in der Zuordnung des Merkmals von $\boldsymbol{v}$. Ein neuronales Netz, das ein beliebiges $\boldsymbol{v}$ in seiner charakteristischen Art immer richtig zuordnet, hat auf allen Ebenen Gewichtsmatrizen $W^{'}_i$ gelernt, die in der Zuordnung keinen Fehler mehr machen.
+
+Im Allgemeinen wird das Lernen in neuronalen Netzen für eine beliebige Ebene $i$ mit der Matrixmultiplikation gelöst. Betrachtet man die Multiplikation von $W_i$ und $\boldsymbol{v}$, wobei $W_i$ eine $n \times n$ Matrix und $\boldsymbol{v}$ ein $n \times 1$ Vektor ist, dann ist das Ergebnis dieser Multiplikation wieder ein Vektor der Größe $n \times 1$. Um $n$ Vektoren gleichzeitig zu lernen, wurden $n$ Vektoren als $n \times n$ Matrix aufgefasst und dazu die Matrixmultiplikation verwendet. Eine Alternative dazu ist, die Gewichtsmatrix $W_i$ der Größe $n \times n$ als $n$ Vektoren der Größe $1 \times n$ aufzufassen und $n$ Vektormultiplikationen zu verwenden. Sollen dann $k$ Vektoren gleichzeitig gelernt werden, hat das Lernen bezogen auf die Multiplikation eine Laufzeit von $k \cdot O(n^2)$. Dabei muss $k$ nicht den Wert $n$ annehmen, da $n$ sehr groß werden kann. Also ist $k \cdot O(n^2)$ immer noch schneller als $O(n^{2.3219})$, wenn \textsc{Strassen-25} für die Matrixmultiplikation verwendet wird. 
+
 \section{Finden von Kernen}
 In der Beweisführung, dass es keinen Teile-und-Herrsche Algorithmus zur Multiplikation von $n \times n$ Matrizen gibt, der weniger als 5 Matrixmultiplikationen benötigt, wurde die Eigenschaft des Projizierens genutzt. Zwei Vektoren $\boldsymbol{u}$ und $\boldsymbol{v}$ projizieren $\boldsymbol{w}$ genau dann, wenn es Konstanten $k_1$ und $k_2$ gibt, so dass $$k_1 \boldsymbol{u} + k_2\boldsymbol{v} = \boldsymbol{w} \neq \boldsymbol{0}.$$ Es ist im Allgemeinen von Interesse, eine minimale Projektion zu finden: Finde eine minimale Projektion, nimm noch eine Konstante $k$ weg, dann ist es die \textit{größte Einheit}, die aus sich heraus, egal wie, nichts mehr projizieren kann außer $\boldsymbol{0}$. Die Idee des Algorithmus von \textsc{Strassen-25} eignet sich zum Finden von Kernen.
 
 \section{Effiziente Verknüpfung}
 Matrizen bilden keinen wohl geformten Körper. Es ist daher von Interesse zu untersuchen, wie sich die Struktur der Matrix effizient verknüpfen lässt unabhängig von der konkreten Verknüpfung. Eine mögliche Vorgehensweise für das effiziente Verknüpfen ist die folgende: 
 \begin{enumerate}
-	\item Halte die Wertebereiche von Elementen einer Matrix in ihrer Größe klein
-	\item Finde die Menge aller Kerne
-	\item Projeziere mit Hilfe der Kerne das Ergebnis der konkreten Verknüpfung
-	\item Vergrößere den Wertebereich um ein Delta
-	\item Wiederhole Schritte 1 - 4 für die Projektion mit dem neuen Wertebereich
+	\item Halte die Wertebereiche von Elementen einer Matrix in ihrer Größe klein.
+	\item Finde die Menge aller Kerne.
+	\item Projiziere mit Hilfe der Kerne das Ergebnis der konkreten Verknüpfung.
+	\item Vergrößere den Wertebereich um ein Delta.
+	\item Wiederhole Schritte 1 - 4 für die Projektion mit dem neuen Wertebereich.
 \end{enumerate}
 Mit diesem Vorgehen bleibt das Finden aller Kerne für einen kleinen Wertebereich lösbar. Daher lassen sich alle Ergebnisse für den kleinen Wertebereich mit Hilfe aller Kerne in dem konkreten Raum projizieren. Je öfter dieses Vorgehen wiederholt und die Wertebereiche vergrößert werden, desto aufwendiger wird es.
 
@@ -462,7 +467,22 @@ In Kapitel \ref{sec:verknüpfungen} wurden Verknüpfungen wie die Addition und d
 
 Matrizen bilden keinen wohl geformten Körper. Vektoren bilden einen wohl geformten Körper. In der Verknüpfung der Multiplikation sind Matrizen aufwendiger in der Verknüpfung. Vektoren lassen sich effizienter verknüpfen in der Multiplikation. Es lohnt sich also Strukturen zu gebrauchen, die einen wohl geformten Körper bilden und für diese effiziente Algorithmen zu entwickeln.
 
-In Kapitel \ref{chap:anwendungen} wird der Algorithmus \textsc{Strassen-25} vorgestellt, der sich eignet für das Finden von Kernen. Es wird eine Vorgehensweise beschrieben, mit der für angemessen große Wertebereiche das Finden aller Kerne und das Projezieren aller Ergebnisse effizient möglich ist. Je öfter der Wertbereich erhöht wird, desto aufwendiger wird dieses Vorgehen.
+In Kapitel \ref{chap:anwendungen} wird der Algorithmus \textsc{Strassen-25} vorgestellt, der sich eignet für das Finden von Kernen. Es wird eine Vorgehensweise beschrieben, mit der für angemessen große Wertebereiche das Finden aller Kerne und das Projizieren aller Ergebnisse effizient möglich ist. Je öfter der Wertbereich erhöht wird, desto aufwendiger wird dieses Vorgehen.
 
-Betrachte das Problem des gewichteten perfekten Matchings. Wenn die Kanten Gewichte haben (z.B. Kosten), sucht man ein perfektes Matching mit minimalen Kosten. Der $\textsc{Hungarian}$ Algorithmus löst dieses Problem mit einer Laufzeit von $O(n^3)$, für einen vollständigen bipartiten Graphen mit $n$ Knoten auf beiden Seiten $V_1$ und $V_2$. Es ist zu prüfen, ob es für dieses Problem einen Schwerpunkt gibt und wie es dann im Schwerpunkt lösbar ist. Abbilden lässt sich das Problem auf Vektoren mit dem Wertebereich der binären Zahlen. Gibt es mit dem Schwerpunkt ein rekursives Verfahren, welches zu einer effizienteren Lösung führt?
+Es wird für das Deep-Learning die Alternative beschrieben, die Gewichtsmatrix $W_i$ der Größe $n \times n$ als $n$ Vektoren der Größe $1 \times n$ aufzufassen und $n$ Vektormultiplikationen zu verwenden. Wenn dann $k$ Vektoren gleichzeitig gelernt werden, hat das Lernen bezogen auf die Multiplikation eine Laufzeit von $k \cdot O(n^2)$. Wie groß ist $k$ zu wählen, dass $k \cdot O(n^2)$ immer noch schneller als $O(n^{2.3219})$ von \textsc{Strassen-25} für die Matrixmultiplikation ist? Damit die $k$-fache Vektormultiplikation effizienter ist, muss gelten:
+$$k \cdot O(n^2) < O(n^{2.3219}).$$
+Unter Berücksichtigung der Konstanten $c_1$ und $c_2$:
+$$k \cdot c_1 \cdot n^2 < c_2 \cdot n^{2.3219}.$$
+Dies führt zu der Bedingung:
+$$k < \frac{c_2}{c_1} \cdot n^{0.3219}.$$
+Da $n^{0.3219}$ mit wachsendem $n$ zunimmt, wird die obere Schranke für $k$ größer, je größer $n$ wird. Für unterschiedliche Werte von $n$ ergeben sich damit beispielhaft folgende Schranken für $k$:
+\begin{align*}
+	n = 1000: \quad & k < 1000^{0.3219} \approx 9, \\
+	n = 5000: \quad & k < 5000^{0.3219} \approx 15, \\
+	n = 10000: \quad & k < 10000^{0.3219} \approx 19, \\
+	n = 1000000: \quad & k < 1000000^{0.3219} \approx 85.
+	%n = 10000000: \quad & k < 10000000^{0.3219} \approx 179
+\end{align*}
+
+Als abschließender Ausblick wird das Problem des gewichteten perfekten Matchings betrachtet. Wenn die Kanten Gewichte haben (z.B. Kosten), sucht man ein perfektes Matching mit minimalen Kosten. Der $\textsc{Hungarian}$ Algorithmus löst dieses Problem mit einer Laufzeit von $O(n^3)$, für einen vollständigen bipartiten Graphen mit $n$ Knoten auf beiden Seiten $V_1$ und $V_2$. Es ist zu prüfen, ob es für dieses Problem einen Schwerpunkt gibt und wie es dann im Schwerpunkt lösbar ist. Abbilden lässt sich das Problem auf Vektoren mit dem Wertebereich der binären Zahlen. Gibt es mit dem Schwerpunkt ein rekursives Verfahren, welches zu einer effizienteren Lösung führt?
 \end{document}
